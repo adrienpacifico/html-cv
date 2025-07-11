@@ -92,6 +92,24 @@
                 height: 16px !important;
                 width: auto !important;
             }
+
+            .skill-bar {
+                background: linear-gradient(90deg, #ea580c 0%, #fb923c 50%, #fdba74 100%) !important;
+                animation: none !important;
+            }
+
+            .skill-bar::after {
+                display: none !important;
+            }
+
+            .skill-item {
+                break-inside: avoid !important;
+                margin-bottom: 5mm !important;
+            }
+
+            .skills-chart {
+                break-inside: avoid !important;
+            }
             
             .experience-item {
                 break-inside: avoid;
@@ -385,6 +403,88 @@
             transition: all 0.3s ease;
         }
 
+        .skill-item {
+            margin-bottom: 15px;
+            font-size: 0.9em;
+        }
+
+        .skill-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 5px;
+            color: white;
+        }
+
+        .skill-name {
+            font-weight: 600;
+            color: white;
+        }
+
+        .skill-experience {
+            font-size: 0.8em;
+            color: #90cdf4;
+            background: rgba(49, 130, 206, 0.2);
+            padding: 2px 8px;
+            border-radius: 10px;
+            border: 1px solid rgba(49, 130, 206, 0.3);
+        }
+
+        .skill-bar-container {
+            position: relative;
+            height: 12px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 6px;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .skill-bar {
+            height: 100%;
+            background: linear-gradient(90deg, #ea580c 0%, #fb923c 50%, #fdba74 100%);
+            border-radius: 6px;
+            transition: width 2.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            position: relative;
+            box-shadow: inset 0 1px 2px rgba(255, 255, 255, 0.3);
+        }
+
+        .skill-bar::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(90deg, transparent 0%, rgba(255, 255, 255, 0.2) 50%, transparent 100%);
+            animation: shimmer 2s infinite;
+        }
+
+        @keyframes shimmer {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+
+        .skill-percentage {
+            position: absolute;
+            right: 8px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 0.75em;
+            font-weight: bold;
+            color: white;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7);
+            z-index: 10;
+        }
+
+        .skill-item:hover .skill-bar {
+            transform: scale(1.02);
+            box-shadow: 0 2px 8px rgba(234, 88, 12, 0.4);
+        }
+
+        .skill-item:hover .skill-name {
+            color: #90cdf4;
+        }
+
         .tool-tag {
             background: linear-gradient(135deg, #e6fffa 0%, #b2f5ea 100%);
             color: #1a202c;
@@ -506,17 +606,105 @@
         <div class="sidebar">
             <div class="section">
                 <h2>Skills</h2>
-                <div class="tools-list">
-                    <img src="https://img.shields.io/badge/Data_Analysis-12_years-2c3e50?style=flat&logo=databricks&logoColor=white" alt="Data Analysis - 12 years">
-                    <img src="https://img.shields.io/badge/Pandas-10%2B_yrs-2c3e50?style=flat&logo=pandas&logoColor=white" alt="Pandas - 10+ years">
-                    <img src="https://img.shields.io/badge/Python-10%2B_yrs-2c3e50?style=flat&logo=python&logoColor=white" alt="Python - 10+ years">
-                    <img src="https://img.shields.io/badge/SQL-10%2B_yrs-2c3e50?style=flat&logo=postgresql&logoColor=white" alt="SQL - 4+ years">
-                    <img src="https://img.shields.io/badge/Machine_Learning-6_yrs-2c3e50?style=flat&logo=scikitlearn&logoColor=white" alt="Machine Learning - 6 years">
-                    <img src="https://img.shields.io/badge/MLOps-5_yrs-2c3e50?style=flat&logo=mlflow&logoColor=white" alt="MLOps - 5 years">
-                    <img src="https://img.shields.io/badge/Web_Scraping-6_yrs-2c3e50?style=flat&logo=selenium&logoColor=white" alt="Web Scraping - 6 years">
-                    <img src="https://img.shields.io/badge/Google_Cloud-1_yr-2c3e50?style=flat&logo=googlecloud&logoColor=white" alt="GCP - 1 year">
-                    <img src="https://custom-icon-badges.demolab.com/badge/AWS-1_yr-2c3e50?style=flat&logo=aws&logoColor=white" alt="AWS - 1 year">
-                    <img src="https://img.shields.io/badge/DBT-8_mths-2c3e50?style=flat&logo=dbt&logoColor=white" alt="DBT - 14 months">
+                <div class="skills-chart">
+                    <div class="skill-item">
+                        <div class="skill-header">
+                            <span class="skill-name">Data Analysis</span>
+                            <span class="skill-experience">12 years</span>
+                        </div>
+                        <div class="skill-bar-container">
+                            <div class="skill-bar" data-skill="95"></div>
+                            <div class="skill-percentage">95%</div>
+                        </div>
+                    </div>
+                    
+                    <div class="skill-item">
+                        <div class="skill-header">
+                            <span class="skill-name">Pandas</span>
+                            <span class="skill-experience">10+ years</span>
+                        </div>
+                        <div class="skill-bar-container">
+                            <div class="skill-bar" data-skill="95"></div>
+                            <div class="skill-percentage">95%</div>
+                        </div>
+                    </div>
+                    
+                    <div class="skill-item">
+                        <div class="skill-header">
+                            <span class="skill-name">Python</span>
+                            <span class="skill-experience">10+ years</span>
+                        </div>
+                        <div class="skill-bar-container">
+                            <div class="skill-bar" data-skill="85"></div>
+                            <div class="skill-percentage">85%</div>
+                        </div>
+                    </div>
+                    
+                    <div class="skill-item">
+                        <div class="skill-header">
+                            <span class="skill-name">Machine Learning</span>
+                            <span class="skill-experience">6 years</span>
+                        </div>
+                        <div class="skill-bar-container">
+                            <div class="skill-bar" data-skill="90"></div>
+                            <div class="skill-percentage">90%</div>
+                        </div>
+                    </div>
+                    
+                    <div class="skill-item">
+                        <div class="skill-header">
+                            <span class="skill-name">DBT</span>
+                            <span class="skill-experience">14 months</span>
+                        </div>
+                        <div class="skill-bar-container">
+                            <div class="skill-bar" data-skill="70"></div>
+                            <div class="skill-percentage">70%</div>
+                        </div>
+                    </div>
+                    
+                    <div class="skill-item">
+                        <div class="skill-header">
+                            <span class="skill-name">SQL</span>
+                            <span class="skill-experience">10+ years</span>
+                        </div>
+                        <div class="skill-bar-container">
+                            <div class="skill-bar" data-skill="70"></div>
+                            <div class="skill-percentage">70%</div>
+                        </div>
+                    </div>
+                    
+                    <div class="skill-item">
+                        <div class="skill-header">
+                            <span class="skill-name">Google Cloud</span>
+                            <span class="skill-experience">1 year</span>
+                        </div>
+                        <div class="skill-bar-container">
+                            <div class="skill-bar" data-skill="60"></div>
+                            <div class="skill-percentage">60%</div>
+                        </div>
+                    </div>
+                    
+                    <div class="skill-item">
+                        <div class="skill-header">
+                            <span class="skill-name">MLOps</span>
+                            <span class="skill-experience">5 years</span>
+                        </div>
+                        <div class="skill-bar-container">
+                            <div class="skill-bar" data-skill="70"></div>
+                            <div class="skill-percentage">70%</div>
+                        </div>
+                    </div>
+                    
+                    <div class="skill-item">
+                        <div class="skill-header">
+                            <span class="skill-name">Web Scraping</span>
+                            <span class="skill-experience">6 years</span>
+                        </div>
+                        <div class="skill-bar-container">
+                            <div class="skill-bar" data-skill="35"></div>
+                            <div class="skill-percentage">35%</div>
+                        </div>
+                    </div>
                 </div>
             </div>
 
@@ -859,6 +1047,46 @@
         if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
             console.log('Development mode - cache disabled');
         }
+
+        // Animate skill bars on page load
+        function animateSkillBars() {
+            const skillBars = document.querySelectorAll('.skill-bar');
+            
+            skillBars.forEach((bar, index) => {
+                const skillLevel = bar.getAttribute('data-skill');
+                
+                // Start with 0 width
+                bar.style.width = '0%';
+                
+                // Animate to actual width with longer delay for staggered effect
+                setTimeout(() => {
+                    bar.style.width = skillLevel + '%';
+                }, index * 150 + 500); // 500ms initial delay, then 150ms between each
+            });
+        }
+
+        // Run animation when page loads
+        window.addEventListener('load', animateSkillBars);
+
+        // Also run animation when the skills section comes into view (for better UX)
+        function observeSkillsSection() {
+            const skillsSection = document.querySelector('.skills-chart');
+            if (!skillsSection) return;
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        animateSkillBars();
+                        observer.unobserve(entry.target); // Only animate once
+                    }
+                });
+            }, { threshold: 0.3 });
+
+            observer.observe(skillsSection);
+        }
+
+        // Initialize intersection observer
+        document.addEventListener('DOMContentLoaded', observeSkillsSection);
     </script>
 </body>
 </html>
