@@ -1,0 +1,864 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Adrien Pacifico - CV</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.4;
+            color: #2d3748;
+            background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 50%, #e2e8f0 100%);
+            margin: 0;
+            padding: 20px;
+            min-height: 100vh;
+        }
+
+        .cv-container {
+            max-width: 210mm;
+            margin: 0 auto;
+            background: #ffffff;
+            border-radius: 15px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+
+        @media print {
+            body {
+                padding: 10mm;
+                font-size: 10pt;
+                line-height: 1.4;
+            }
+            
+            .no-print {
+                display: none;
+            }
+            
+            .page-break {
+                page-break-before: always;
+            }
+            
+            h1 {
+                font-size: 16pt;
+            }
+            
+            h2 {
+                font-size: 12pt;
+            }
+            
+            h3 {
+                font-size: 11pt;
+            }
+            
+            .main-content {
+                grid-template-columns: 1fr 2fr !important;
+                gap: 15mm !important;
+                margin-top: 15mm;
+            }
+            
+            .main-content::before,
+            .main-content::after {
+                display: none !important;
+            }
+            
+            .sidebar {
+                background: linear-gradient(135deg, #2d3748 0%, #1a202c 100%) !important;
+                color: white !important;
+                padding: 10mm !important;
+                border-radius: 5mm !important;
+                break-inside: avoid;
+            }
+            
+            .sidebar h2 {
+                color: white !important;
+                border-bottom: 2px solid rgba(255, 255, 255, 0.3) !important;
+            }
+            
+            .content {
+                background: linear-gradient(135deg, #fbfcfd 0%, #f4f6f8 50%, #edf2f7 100%) !important;
+                padding: 10mm !important;
+                border-radius: 5mm !important;
+                break-inside: avoid;
+            }
+            
+            .tools-list img {
+                height: 16px !important;
+                width: auto !important;
+            }
+            
+            .experience-item {
+                break-inside: avoid;
+                margin-bottom: 8mm;
+            }
+            
+            .section {
+                break-inside: avoid;
+                margin-bottom: 8mm;
+            }
+            
+            .tools-list {
+                gap: 4px !important;
+            }
+            
+            .contact-info a {
+                color: rgba(255, 255, 255, 0.95) !important;
+                text-decoration: none !important;
+            }
+            
+            .header {
+                background: linear-gradient(135deg, #2d3748 0%, #1a202c 100%) !important;
+                color: white !important;
+                border-radius: 10mm 10mm 0 0 !important;
+                box-shadow: none !important;
+            }
+            
+            .publication {
+                break-inside: avoid;
+            }
+        }
+
+        .pdf-export-btn {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: linear-gradient(135deg, #3182ce 0%, #2b77cb 100%);
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 0.9em;
+            font-weight: bold;
+            box-shadow: 0 4px 20px rgba(49, 130, 206, 0.3);
+            transition: all 0.3s ease;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .pdf-export-btn:hover {
+            background: linear-gradient(135deg, #2c5282 0%, #2a4365 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 25px rgba(49, 130, 206, 0.4);
+        }
+
+        .pdf-export-btn:active {
+            transform: translateY(0);
+        }
+
+        .pdf-export-btn svg {
+            width: 16px;
+            height: 16px;
+        }
+
+        @media print {
+            .pdf-export-btn {
+                display: none !important;
+            }
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding: 40px 30px 30px;
+            background: linear-gradient(135deg, #2d3748 0%, #1a202c 100%);
+            color: white;
+            border-radius: 15px 15px 0 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, transparent 30%, rgba(49, 130, 206, 0.1) 50%, transparent 70%);
+            z-index: 1;
+        }
+
+        .header > * {
+            position: relative;
+            z-index: 2;
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            color: white;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .header .subtitle {
+            font-size: 1.2em;
+            color: #90cdf4;
+            margin-bottom: 20px;
+            font-weight: 500;
+        }
+
+        .personal-info {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin-bottom: 15px;
+        }
+
+        .personal-info span {
+            background: linear-gradient(135deg, #3182ce 0%, #2c5282 100%);
+            color: white;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.9em;
+            box-shadow: 0 2px 8px rgba(49, 130, 206, 0.3);
+            font-weight: 500;
+        }
+
+        .contact-info {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .contact-info span {
+            font-size: 0.9em;
+            color: rgba(255, 255, 255, 0.95);
+        }
+
+        .contact-info a {
+            color: rgba(255, 255, 255, 0.95);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .contact-info a:hover {
+            color: #90cdf4;
+            text-decoration: underline;
+        }
+
+        .main-content {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 30px;
+            margin-top: 30px;
+            position: relative;
+        }
+
+
+
+        .sidebar {
+            background: linear-gradient(135deg, #2d3748 0%, #1a202c 100%);
+            padding: 25px;
+            border-radius: 15px;
+            color: white;
+            box-shadow: 0 8px 32px rgba(45, 55, 72, 0.2);
+        }
+
+        .content {
+            padding: 25px;
+            background: linear-gradient(135deg, #fbfcfd 0%, #f4f6f8 50%, #edf2f7 100%);
+            border-radius: 15px;
+            box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.05);
+        }
+
+        h2 {
+            color: #1a202c;
+            font-size: 1.4em;
+            margin-bottom: 15px;
+            padding-bottom: 8px;
+            border-bottom: 3px solid transparent;
+            background: linear-gradient(90deg, #3182ce, #2c5282) bottom;
+            background-size: 100% 3px;
+            background-repeat: no-repeat;
+            font-weight: 600;
+        }
+
+        .sidebar h2 {
+            color: white;
+            border-bottom: 3px solid rgba(255, 255, 255, 0.3);
+            background: none;
+        }
+
+        h3 {
+            color: #2d3748;
+            font-size: 1.1em;
+            margin-bottom: 5px;
+        }
+
+        .section {
+            margin-bottom: 18px;
+        }
+
+        .experience-item {
+            margin-bottom: 15px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .experience-item:last-child {
+            border-bottom: none;
+        }
+
+        .job-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 5px;
+        }
+
+        .job-title {
+            font-weight: bold;
+            color: #1a202c;
+        }
+
+        .job-date {
+            color: #718096;
+            font-size: 0.9em;
+            background: linear-gradient(135deg, #3182ce 0%, #2c5282 100%);
+            color: white;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-weight: 500;
+        }
+
+        .company {
+            color: #2b77cb;
+            font-style: italic;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+
+        .description {
+            margin-bottom: 8px;
+            text-align: justify;
+        }
+
+        .description ul {
+            margin: 6px 0;
+            padding-left: 20px;
+        }
+
+        .description li {
+            margin-bottom: 3px;
+            text-align: left;
+        }
+
+        .tools-used {
+            margin-top: 8px;
+        }
+
+        .tools-used strong {
+            color: #1a202c;
+        }
+
+        .tools-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 5px;
+        }
+
+        .tools-list img {
+            height: 20px;
+            width: auto;
+            transition: transform 0.3s ease, filter 0.3s ease;
+        }
+
+        .tools-list a {
+            text-decoration: none;
+        }
+
+        .tools-list a:hover img {
+            transform: translateY(-2px) scale(1.05);
+            filter: brightness(1.1) contrast(1.1);
+            transition: all 0.3s ease;
+        }
+
+        .tool-tag {
+            background: linear-gradient(135deg, #e6fffa 0%, #b2f5ea 100%);
+            color: #1a202c;
+            padding: 3px 10px;
+            border-radius: 12px;
+            font-size: 0.8em;
+            border: 1px solid #4fd1c7;
+            font-weight: 500;
+        }
+
+        .education-item {
+            margin-bottom: 12px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .education-item:last-child {
+            border-bottom: none;
+        }
+
+        .degree {
+            font-weight: bold;
+            color: white;
+        }
+
+        .institution {
+            color: #90cdf4;
+            font-style: italic;
+            font-weight: 600;
+        }
+
+        .other-experience {
+            margin-bottom: 8px;
+        }
+
+        .other-experience strong {
+            color: #1a202c;
+        }
+
+        .publication {
+            background: linear-gradient(135deg, #ffffff 0%, #f7fafc 100%);
+            padding: 20px;
+            border-radius: 12px;
+            border-left: 5px solid #3182ce;
+            box-shadow: 0 4px 12px rgba(49, 130, 206, 0.1);
+            border: 1px solid rgba(49, 130, 206, 0.1);
+        }
+
+        .publication-title {
+            font-weight: bold;
+            color: #1a202c;
+            margin-bottom: 8px;
+            font-size: 1.05em;
+        }
+
+        .publication-authors {
+            color: #4a5568;
+            font-size: 0.9em;
+            margin-bottom: 8px;
+        }
+
+        .publication-details {
+            color: #2d3748;
+            font-size: 0.9em;
+        }
+
+        @media screen and (max-width: 768px) {
+            .main-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .main-content::before,
+            .main-content::after {
+                display: none;
+            }
+            
+            .job-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .personal-info, .contact-info {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+    </style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+</head>
+<body>
+    <button class="pdf-export-btn" onclick="exportToPDF()">
+        <svg viewBox="0 0 24 24" fill="currentColor">
+            <path d="M14,2H6A2,2 0 0,0 4,4V20A2,2 0 0,0 6,22H18A2,2 0 0,0 20,20V8L14,2M18,20H6V4H13V9H18V20Z"/>
+        </svg>
+        Export PDF
+    </button>
+
+    <div class="cv-container">
+        <div class="header">
+        <h1>Adrien Pacifico, Ph.D.</h1>
+        <div class="subtitle">Data Engineer/Data Scientist</div>
+        
+        <div class="personal-info">
+            <span>🇫🇷 French</span>
+            <span>🗣️ French (native), English (fluent)</span>
+            <span>📍 Marseille/Paris, France</span>
+        </div>
+        
+        <div class="contact-info">
+            <span>📞 <a href="tel:+33781361856">+33 7 81 36 18 56</a></span>
+            <span>📧 <a href="mailto:adrienpacificopro@gmail.com">adrienpacificopro@gmail.com</a></span>
+            <span>🌐 <a href="https://adrienpacifico.github.io" target="_blank">adrienpacifico.github.io</a></span>
+            <span><a href="https://github.com/adrienpacifico" target="_blank"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="vertical-align: middle; margin-right: 5px;"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>github.com/adrienpacifico</a></span>
+        </div>
+    </div>
+
+    <div class="main-content">
+        <div class="sidebar">
+            <div class="section">
+                <h2>Skills</h2>
+                <div class="tools-list">
+                    <img src="https://img.shields.io/badge/Data_Analysis-12_years-2c3e50?style=flat&logo=databricks&logoColor=white" alt="Data Analysis - 12 years">
+                    <img src="https://img.shields.io/badge/Pandas-10%2B_yrs-2c3e50?style=flat&logo=pandas&logoColor=white" alt="Pandas - 10+ years">
+                    <img src="https://img.shields.io/badge/Python-10%2B_yrs-2c3e50?style=flat&logo=python&logoColor=white" alt="Python - 10+ years">
+                    <img src="https://img.shields.io/badge/SQL-10%2B_yrs-2c3e50?style=flat&logo=postgresql&logoColor=white" alt="SQL - 4+ years">
+                    <img src="https://img.shields.io/badge/Machine_Learning-6_yrs-2c3e50?style=flat&logo=scikitlearn&logoColor=white" alt="Machine Learning - 6 years">
+                    <img src="https://img.shields.io/badge/MLOps-5_yrs-2c3e50?style=flat&logo=mlflow&logoColor=white" alt="MLOps - 5 years">
+                    <img src="https://img.shields.io/badge/Web_Scraping-6_yrs-2c3e50?style=flat&logo=selenium&logoColor=white" alt="Web Scraping - 6 years">
+                    <img src="https://img.shields.io/badge/Google_Cloud-1_yr-2c3e50?style=flat&logo=googlecloud&logoColor=white" alt="GCP - 1 year">
+                    <img src="https://custom-icon-badges.demolab.com/badge/AWS-1_yr-2c3e50?style=flat&logo=aws&logoColor=white" alt="AWS - 1 year">
+                    <img src="https://img.shields.io/badge/DBT-8_mths-2c3e50?style=flat&logo=dbt&logoColor=white" alt="DBT - 14 months">
+                </div>
+            </div>
+
+            <div class="section">
+                <h2>Tools</h2>
+                <div class="tools-list">
+                    <a href="https://git-scm.com/" target="_blank"><img src="https://img.shields.io/badge/Git-2c3e50?style=flat&logo=git&logoColor=white" alt="Git"></a>
+                    <a href="https://gitlab.com/" target="_blank"><img src="https://img.shields.io/badge/GitLab-2c3e50?style=flat&logo=gitlab&logoColor=white" alt="GitLab"></a>
+                    <a href="https://code.visualstudio.com/" target="_blank"><img src="https://custom-icon-badges.demolab.com/badge/VS_Code-2c3e50?style=flat&logo=vsc&logoColor=white" alt="VS Code"></a>
+                    <a href="https://www.gnu.org/software/bash/" target="_blank"><img src="https://img.shields.io/badge/Terminal-2c3e50?style=flat&logo=gnubash&logoColor=white" alt="Terminal"></a>
+                    <a href="https://www.linux.org/" target="_blank"><img src="https://img.shields.io/badge/Linux-2c3e50?style=flat&logo=linux&logoColor=white" alt="Linux"></a>
+                    <a href="https://www.apple.com/macos/" target="_blank"><img src="https://img.shields.io/badge/macOS-2c3e50?style=flat&logo=apple&logoColor=white" alt="macOS"></a>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2>Stack Overflow</h2>
+                <div class="tools-list">
+                    <a href="https://stackoverflow.com/users/5304366/adrien-pacifico" target="_blank">
+                        <img src="https://stackoverflow.com/users/flair/5304366.png?theme=dark" alt="Adrien Pacifico's Stack Overflow profile" style="width: auto; height: auto; max-width: 208px;">
+                    </a>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2>Education</h2>
+                <div class="education-item">
+                    <div class="degree">Ph.D. in Economics</div>
+                    <div class="institution">Aix-Marseille School of Economics</div>
+                    <div class="job-date">09/2014 - 06/2019</div>
+                    <div style="margin-top: 5px; font-size: 0.9em;">Thesis: Three Empirical Essays in French Household Taxation</div>
+                </div>
+                <div class="education-item">
+                    <div class="degree">Magistère Ingénieur économiste</div>
+                    <div class="institution">Aix-Marseille School of Economics</div>
+                    <div class="job-date">10/2012 - 07/2014</div>
+                    <div style="margin-top: 5px; font-size: 0.9em;">Public Policy Evaluation</div>
+                </div>
+                <div class="education-item">
+                    <div class="degree">BSc Economics (Exchange)</div>
+                    <div class="institution">Bishop's University</div>
+                    <div class="job-date">09/2012 - 12/2012</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="content">
+            <div class="section">
+                <h2>Summary</h2>
+                <p class="description">
+                    I am a data scientist/data engineer with a strong affinity for structured data, with a background in economics focused on statistical and causal modeling. I enjoy both creating statistical models and working on data engineering aspects. My expertise spans predictive (machine learning) and causal (econometrics) models, as well as data acquisition and transformation, pipeline automation, and data quality management.
+                </p>
+                <p class="description">
+                    I am particularly interested in roles that combine business intelligence and analytical engineering but remain open to exploring new domains. My favorite cloud environment is Google Cloud Platform (GCP), and I am also comfortable with AWS. While I have less experience in Azure, I am confident in my ability to adapt and learn quickly.
+                </p>
+            </div>
+
+            <div class="section">
+                <h2>Experience</h2>
+                
+                <div class="experience-item">
+                    <div class="job-header">
+                        <div class="job-title">Data Engineer</div>
+                        <div class="job-date">05-2024 (2 months)</div>
+                    </div>
+                    <div class="company">Free Pro</div>
+                    <div class="description">
+                        <p>Hired to migrate a Talend/PostGre data analytics stack to one based on ClickHouse. I developed a proof of concept where I reproduced key metrics of the company.</p>
+                        <ul>
+                            <li><strong>Data Ingestion:</strong> Export to parquet then ingestion with native ClickHouse. (Experimented with PostGre CDC with PeerDB (first version: parquet loaded with ClickHouse)</li>
+                            <li><strong>Data Transformation:</strong> dbt with dbt-clickhouse plugin (VS Code + dbt Power User in the IDE)</li>
+                            <li><strong>Data Product:</strong> A small dashboard in dash replicating key metrics of the company</li>
+                        </ul>
+                        <p>The proof of concept was appreciated especially for the ability to deploy a documentation at the table and column level, clarity of the data lineage, computational speed of the solution, and possibility to test and modularize the code.</p>
+                    </div>
+                    <div class="tools-used">
+                        <strong>Tools Used:</strong>
+                        <div class="tools-list">
+                            <a href="https://clickhouse.com/" target="_blank"><img src="https://img.shields.io/badge/ClickHouse-2c3e50?style=flat&logo=clickhouse&logoColor=white" alt="ClickHouse"></a>
+                            <a href="https://docs.getdbt.com/" target="_blank"><img src="https://img.shields.io/badge/DBT-2c3e50?style=flat&logo=dbt&logoColor=white" alt="DBT"></a>
+                            <a href="https://dlthub.com/" target="_blank"><img src="https://img.shields.io/badge/dlt-2c3e50?style=flat&logo=python&logoColor=white" alt="dlt"></a>
+                            <a href="https://dagster.io/" target="_blank"><img src="https://img.shields.io/badge/Dagster-2c3e50?style=flat&logo=dagster&logoColor=white" alt="Dagster"></a>
+                            <a href="https://www.peerdb.io/" target="_blank"><img src="https://img.shields.io/badge/PeerDB-2c3e50?style=flat&logo=database&logoColor=white" alt="PeerDB"></a>
+                            <a href="https://www.postgresql.org/" target="_blank"><img src="https://img.shields.io/badge/PostgreSQL-2c3e50?style=flat&logo=postgresql&logoColor=white" alt="PostgreSQL"></a>
+                            <a href="https://podman.io/" target="_blank"><img src="https://img.shields.io/badge/Podman-2c3e50?style=flat&logo=podman&logoColor=white" alt="Podman"></a>
+                            <a href="https://docs.astral.sh/uv/" target="_blank"><img src="https://img.shields.io/badge/uv-2c3e50?style=flat&logo=python&logoColor=white" alt="uv"></a>
+                            <a href="https://gitlab.com/" target="_blank"><img src="https://img.shields.io/badge/GitLab-2c3e50?style=flat&logo=gitlab&logoColor=white" alt="GitLab"></a>
+                            <a href="https://docs.gitlab.com/ee/ci/" target="_blank"><img src="https://img.shields.io/badge/GitLab_CI/CD-2c3e50?style=flat&logo=gitlab&logoColor=white" alt="GitLab CI/CD"></a>
+                            <a href="https://marketplace.visualstudio.com/items?itemName=innoverio.vscode-dbt-power-user" target="_blank"><img src="https://img.shields.io/badge/dbt_Power_User-2c3e50?style=flat&logo=dbt&logoColor=white" alt="dbt Power User"></a>
+                            <a href="https://pandas.pydata.org/" target="_blank"><img src="https://img.shields.io/badge/Pandas-2c3e50?style=flat&logo=pandas&logoColor=white" alt="Pandas"></a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="experience-item">
+                    <div class="job-header">
+                        <div class="job-title">Data Scientist (freelance)</div>
+                        <div class="job-date">09/2023 - 05/2025</div>
+                    </div>
+                    <div class="company">Holmium Consulting</div>
+                    <div class="description">
+                        I developed and deployed a ML model that predicts next day production of electrical windmill parks. The production model automatically queries next day weather predictions of multiple models (AROME, DWD, etc), fetch a trained LightGBM model on a MLFlow server deployed on AWS, and post the prediction to the business client through its proprietary API.
+                    </div>
+                    <div class="tools-used">
+                        <strong>Tools Used:</strong>
+                        <div class="tools-list">
+                            <a href="https://mlflow.org/" target="_blank"><img src="https://img.shields.io/badge/MLFlow-2c3e50?style=flat&logo=mlflow&logoColor=white" alt="MLFlow"></a>
+                            <a href="https://lightgbm.readthedocs.io/" target="_blank"><img src="https://img.shields.io/badge/LightGBM-2c3e50?style=flat&logo=lightgbm&logoColor=white" alt="LightGBM"></a>
+                            <a href="https://aws.amazon.com/" target="_blank"><img src="https://custom-icon-badges.demolab.com/badge/AWS-2c3e50?style=flat&logo=aws&logoColor=white" alt="AWS"></a>
+                            <a href="https://www.docker.com/" target="_blank"><img src="https://img.shields.io/badge/Docker-2c3e50?style=flat&logo=docker&logoColor=white" alt="Docker"></a>
+                            <a href="https://gitlab.com/" target="_blank"><img src="https://img.shields.io/badge/GitLab-2c3e50?style=flat&logo=gitlab&logoColor=white" alt="GitLab"></a>
+                            <a href="https://python-poetry.org/" target="_blank"><img src="https://img.shields.io/badge/Poetry-2c3e50?style=flat&logo=poetry&logoColor=white" alt="Poetry"></a>
+                            <a href="https://www.meteomatics.com/en/api/" target="_blank"><img src="https://img.shields.io/badge/Meteomatics_API-2c3e50?style=flat&logo=api&logoColor=white" alt="Meteomatics API"></a>
+                            <a href="https://kedro.org/" target="_blank"><img src="https://img.shields.io/badge/Kedro-2c3e50?style=flat&logo=kedro&logoColor=white" alt="Kedro"></a>
+                            <a href="https://pandas.pydata.org/" target="_blank"><img src="https://img.shields.io/badge/Pandas-2c3e50?style=flat&logo=pandas&logoColor=white" alt="Pandas"></a>
+                            <a href="https://shap.readthedocs.io/" target="_blank"><img src="https://img.shields.io/badge/SHAP-2c3e50?style=flat&logo=python&logoColor=white" alt="SHAP"></a>
+                            <a href="https://optuna.org/" target="_blank"><img src="https://img.shields.io/badge/Optuna-2c3e50?style=flat&logo=optuna&logoColor=white" alt="Optuna"></a>
+                            <a href="https://scikit-learn.org/" target="_blank"><img src="https://img.shields.io/badge/Scikit_Learn-2c3e50?style=flat&logo=scikitlearn&logoColor=white" alt="Scikit-learn"></a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="experience-item">
+                    <div class="job-header">
+                        <div class="job-title">Teacher in Data Science (freelance)</div>
+                        <div class="job-date">10/2023 - 06/2024</div>
+                    </div>
+                    <div class="company">Albert School</div>
+                    <div class="description">
+                        I taught different subjects for a year at Albert School including data wrangling with pandas, introduction to Python, data acquisition and API usage, coding tools (venv, linter, docker, make), and plotting tools.
+                    </div>
+                </div>
+
+                <div class="experience-item">
+                    <div class="job-header">
+                        <div class="job-title">Data Scientist (permanent position)</div>
+                        <div class="job-date">01/2021 - 01/2023</div>
+                    </div>
+                    <div class="company">NOVRH</div>
+                    <div class="description">
+                        I worked in the R&D department where I developed supervised and unsupervised machine learning models to predict employee absenteeism and errors in payslips. I also developed the first real-time dashboard of the company (plotly dash), which necessitated querying data from multiple sources (ERP undocumented database, GitLab issues, user activity logs). This dashboard is still used in production and is instrumental for the Third-party application support strategy.
+                    </div>
+                    <div class="tools-used">
+                        <strong>Tools Used:</strong>
+                        <div class="tools-list">
+                            <a href="https://plotly.com/dash/" target="_blank"><img src="https://img.shields.io/badge/Plotly-2c3e50?style=flat&logo=plotly&logoColor=white" alt="Plotly Dash"></a>
+                            <a href="https://www.docker.com/" target="_blank"><img src="https://img.shields.io/badge/Docker-2c3e50?style=flat&logo=docker&logoColor=white" alt="Docker"></a>
+                            <a href="https://docs.gitlab.com/ee/ci/" target="_blank"><img src="https://img.shields.io/badge/GitLab_CI/CD-2c3e50?style=flat&logo=gitlab&logoColor=white" alt="GitLab CI/CD"></a>
+                            <a href="https://pytest.org/" target="_blank"><img src="https://img.shields.io/badge/Pytest-2c3e50?style=flat&logo=pytest&logoColor=white" alt="Pytest"></a>
+                            <a href="https://mlflow.org/" target="_blank"><img src="https://img.shields.io/badge/MLFlow-2c3e50?style=flat&logo=mlflow&logoColor=white" alt="MLFlow"></a>
+                            <a href="https://xgboost.readthedocs.io/" target="_blank"><img src="https://img.shields.io/badge/XGBoost-2c3e50?style=flat&logo=xgboost&logoColor=white" alt="XGBoost"></a>
+                            <a href="https://optuna.org/" target="_blank"><img src="https://img.shields.io/badge/Optuna-2c3e50?style=flat&logo=optuna&logoColor=white" alt="Optuna"></a>
+                            <a href="https://supervised.mljar.com/" target="_blank"><img src="https://img.shields.io/badge/MLJar-2c3e50?style=flat&logo=python&logoColor=white" alt="MLJar"></a>
+                            <a href="https://pandas.pydata.org/" target="_blank"><img src="https://img.shields.io/badge/Pandas-2c3e50?style=flat&logo=pandas&logoColor=white" alt="Pandas"></a>
+                            <a href="https://www.oracle.com/database/technologies/appdev/sql.html" target="_blank"><img src="https://custom-icon-badges.demolab.com/badge/Oracle_SQL-2c3e50?style=flat&logo=oracle&logoColor=white" alt="Oracle SQL"></a>
+                            <a href="https://man7.org/linux/man-pages/man5/crontab.5.html" target="_blank"><img src="https://img.shields.io/badge/CRON-2c3e50?style=flat&logo=linux&logoColor=white" alt="CRON"></a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="experience-item">
+                    <div class="job-header">
+                        <div class="job-title">Post Doctoral Researcher</div>
+                        <div class="job-date">06/2019 - 12/2020</div>
+                    </div>
+                    <div class="company">Reproducibility certifier HEC Paris & ETH Zurich</div>
+                    <div class="description">
+                        After my PhD, I did two contracts. One within cascad.tech where I helped to reproduce and certify scientific publications. And another for ETH Zurich, where I worked on an income mobility project.
+                    </div>
+                    <div class="tools-used">
+                        <strong>Tools Used:</strong>
+                        <div class="tools-list">
+                            <a href="https://www.casd.eu/" target="_blank"><img src="https://img.shields.io/badge/CASD-2c3e50?style=flat&logo=database&logoColor=white" alt="CASD"></a>
+                            <a href="https://www.r-project.org/" target="_blank"><img src="https://img.shields.io/badge/R-2c3e50?style=flat&logo=r&logoColor=white" alt="R"></a>
+                            <a href="https://git-scm.com/" target="_blank"><img src="https://img.shields.io/badge/Git-2c3e50?style=flat&logo=git&logoColor=white" alt="Git"></a>
+                            <a href="https://www.docker.com/" target="_blank"><img src="https://img.shields.io/badge/Docker-2c3e50?style=flat&logo=docker&logoColor=white" alt="Docker"></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2>Other Experiences</h2>
+                <div class="other-experience">
+                    <strong>European Commission</strong> (2023-Present): Microsimulation, updating parameters for France
+                </div>
+                <div class="other-experience">
+                    <strong>lelynx.fr</strong> (03/2023): Data Scientist, AB testing
+                </div>
+                <div class="other-experience">
+                    <strong>Aix-Marseille University (DESU)</strong> (03/2022-Present): Teaching Python for data science & Data acquisition through API call & webscraping
+                </div>
+                <div class="other-experience">
+                    <strong>Kesk'IA</strong> (03/2023-07/2023): Mentor for computer vision algorithm deployment for street litter detection
+                </div>
+                <div class="other-experience">
+                    <strong>ETALAB</strong> (03/2014-06/2014): OpenFisca Contributor - Developed the microsimulation software OpenFisca
+                </div>
+                <div class="other-experience">
+                    <strong>Bacardi Geneva</strong> (06/2012-08/2012): Management Control - Developed VBA excel macro to monitor FTE
+                </div>
+            </div>
+
+            <div class="section">
+                <h2>Publication</h2>
+                <div class="publication">
+                    <div class="publication-title">Tax Minimization by French Cohabiting Couples</div>
+                    <div class="publication-authors">Olivier Bargain, Damien Echevin, Audrey Etienne, Nicolas Moreau, and Adrien Pacifico</div>
+                    <div class="publication-details">National Tax Journal Volume 75, Number 2, June 2022<br>DOI: 10.1086/719427</div>
+                </div>
+            </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        async function exportToPDF() {
+            const button = document.querySelector('.pdf-export-btn');
+            const originalText = button.innerHTML;
+            
+            // Show loading state
+            button.innerHTML = `
+                <svg viewBox="0 0 24 24" fill="currentColor" style="animation: spin 1s linear infinite;">
+                    <path d="M12,4V2A10,10 0 0,0 2,12H4A8,8 0 0,1 12,4Z"/>
+                </svg>
+                Generating...
+            `;
+            button.disabled = true;
+            
+            try {
+                // Hide the button temporarily for the capture
+                button.style.display = 'none';
+                
+                // Get the CV container instead of the whole body
+                const element = document.querySelector('.cv-container');
+                
+                // Wait a bit to ensure all images are loaded
+                await new Promise(resolve => setTimeout(resolve, 1000));
+                
+                // Force a repaint
+                element.style.transform = 'translateZ(0)';
+                
+                // Configure html2canvas options
+                const canvas = await html2canvas(element, {
+                    scale: 2,
+                    useCORS: true,
+                    allowTaint: true,
+                    backgroundColor: '#ffffff',
+                    logging: false,
+                    width: element.offsetWidth,
+                    height: element.offsetHeight,
+                    scrollX: 0,
+                    scrollY: 0
+                });
+                
+                // Reset transform
+                element.style.transform = '';
+                
+                // Show the button again
+                button.style.display = 'flex';
+                
+                // Create PDF
+                const { jsPDF } = window.jspdf;
+                const pdf = new jsPDF({
+                    orientation: 'portrait',
+                    unit: 'mm',
+                    format: 'a4'
+                });
+                
+                // Calculate dimensions
+                const imgWidth = 190; // Slightly smaller than A4 to leave margins
+                const imgHeight = (canvas.height * imgWidth) / canvas.width;
+                const pageHeight = 277; // A4 height minus margins
+                
+                const imgData = canvas.toDataURL('image/png', 1.0);
+                
+                // Center the content on the page
+                const xOffset = (210 - imgWidth) / 2; // Center horizontally
+                const yOffset = 10; // Top margin
+                
+                // If content fits on one page
+                if (imgHeight <= pageHeight) {
+                    pdf.addImage(imgData, 'PNG', xOffset, yOffset, imgWidth, imgHeight);
+                } else {
+                    // Multiple pages
+                    let remainingHeight = imgHeight;
+                    let currentY = 0;
+                    let pageNumber = 0;
+                    
+                    while (remainingHeight > 0) {
+                        if (pageNumber > 0) {
+                            pdf.addPage();
+                        }
+                        
+                        const heightToAdd = Math.min(pageHeight, remainingHeight);
+                        const sourceY = (currentY / imgHeight) * canvas.height;
+                        const sourceHeight = (heightToAdd / imgHeight) * canvas.height;
+                        
+                        // Create temporary canvas for this section
+                        const tempCanvas = document.createElement('canvas');
+                        const tempCtx = tempCanvas.getContext('2d');
+                        tempCanvas.width = canvas.width;
+                        tempCanvas.height = sourceHeight;
+                        
+                        tempCtx.drawImage(canvas, 0, sourceY, canvas.width, sourceHeight, 0, 0, canvas.width, sourceHeight);
+                        const tempImgData = tempCanvas.toDataURL('image/png', 1.0);
+                        
+                        pdf.addImage(tempImgData, 'PNG', xOffset, yOffset, imgWidth, heightToAdd);
+                        
+                        remainingHeight -= pageHeight;
+                        currentY += pageHeight;
+                        pageNumber++;
+                    }
+                }
+                
+                // Download the PDF
+                pdf.save('Adrien_Pacifico_CV.pdf');
+                
+            } catch (error) {
+                console.error('Error generating PDF:', error);
+                alert('Erreur lors de la génération du PDF. Veuillez réessayer.');
+            } finally {
+                // Restore button
+                button.innerHTML = originalText;
+                button.disabled = false;
+            }
+        }
+        
+        // Add CSS for spinning animation
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes spin {
+                0% { transform: rotate(0deg); }
+                100% { transform: rotate(360deg); }
+            }
+        `;
+        document.head.appendChild(style);
+        
+        // Force cache clearing for development
+        if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
+            console.log('Development mode - cache disabled');
+        }
+    </script>
+</body>
+</html>
