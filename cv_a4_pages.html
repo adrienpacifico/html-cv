@@ -90,10 +90,19 @@
                 transition: none !important;
             }
             
-            /* Remove any debug borders or outlines */
-            * {
+            /* Remove debug borders but keep styling borders */
+            .a4-page {
                 border: none !important;
                 outline: none !important;
+            }
+            
+            /* Ensure borders are visible in print */
+            .header {
+                border-bottom: 2px solid #3182ce !important;
+            }
+            
+            .section h2 {
+                border-bottom: 2px solid #e2e8f0 !important;
             }
             
             /* Ensure proper A4 scaling */
