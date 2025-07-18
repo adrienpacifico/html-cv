@@ -92,12 +92,6 @@
             /* Ensure skill bars are fully rendered for print */
             .skill-bar {
                 transition: none !important;
-                animation: none !important;
-            }
-            
-            .skill-bar::before {
-                display: none !important;
-                animation: none !important;
             }
             
             /* Remove debug borders but keep styling borders */
@@ -243,21 +237,14 @@
             font-size: 11pt;
             font-weight: 600;
             color: #2d3748;
-            cursor: pointer;
+            cursor: help;
             position: relative;
-            transition: all 0.3s ease;
-        }
-
-        .skill-name:hover {
-            color: #3182ce;
-            transform: translateY(-1px);
-            text-shadow: 0 2px 4px rgba(49, 130, 206, 0.1);
         }
 
         /* Tooltip styles */
         .skill-tooltip {
             position: relative;
-            cursor: pointer;
+            cursor: help;
         }
 
         .tooltip {
@@ -274,11 +261,8 @@
             box-shadow: 0 4px 12px rgba(0,0,0,0.15);
             opacity: 0;
             visibility: hidden;
-            transition: opacity 0.3s, visibility 0.3s, transform 0.3s;
+            transition: opacity 0.3s, visibility 0.3s;
             pointer-events: none;
-            transform: translateY(10px);
-            cursor: text;
-            user-select: text;
         }
 
         .tooltip::before {
@@ -296,36 +280,6 @@
         .tooltip.show {
             opacity: 1;
             visibility: visible;
-            pointer-events: auto;
-            transform: translateY(0);
-        }
-
-        .tooltip.pinned {
-            opacity: 1;
-            visibility: visible;
-            pointer-events: auto;
-            transform: translateY(0);
-        }
-
-        /* Close button for pinned tooltips */
-        .tooltip-close {
-            position: absolute;
-            top: 4px;
-            right: 6px;
-            background: none;
-            border: none;
-            color: #cbd5e0;
-            cursor: pointer;
-            font-size: 12px;
-            line-height: 1;
-            padding: 2px;
-            border-radius: 2px;
-            transition: color 0.2s;
-        }
-
-        .tooltip-close:hover {
-            color: white;
-            background: rgba(255, 255, 255, 0.1);
         }
 
         .skill-experience {
@@ -347,44 +301,6 @@
             border-radius: 3px;
             transition: width 2s ease-in-out;
             width: 0%;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .skill-bar::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(
-                90deg,
-                transparent,
-                rgba(255, 255, 255, 0.3),
-                transparent
-            );
-            animation: shimmer 3s ease-in-out infinite;
-            animation-delay: 1s;
-        }
-
-        @keyframes shimmer {
-            0% {
-                left: -100%;
-                opacity: 0;
-            }
-            50% {
-                opacity: 1;
-            }
-            100% {
-                left: 100%;
-                opacity: 0;
-            }
-        }
-
-        /* Pause shimmer animation on hover for better UX */
-        .skill-item:hover .skill-bar::before {
-            animation-play-state: paused;
         }
 
         .skill-percentage {
@@ -1056,123 +972,60 @@
         function initializeTooltips() {
             const tooltips = document.querySelectorAll('.skill-tooltip');
             let currentTooltip = null;
-            let pinnedTooltip = null;
             
             tooltips.forEach(tooltip => {
                 let tooltipElement = null;
-                let isHovering = false;
                 
-                // Mouse enter - show tooltip
                 tooltip.addEventListener('mouseenter', function() {
-                    if (pinnedTooltip) return; // Don't show hover tooltip if one is pinned
-                    
-                    isHovering = true;
                     const tooltipText = this.getAttribute('data-tooltip');
                     if (!tooltipText) return;
                     
-                    // Remove any existing hover tooltip
-                    if (currentTooltip && !currentTooltip.classList.contains('pinned')) {
+                    // Remove any existing tooltip
+                    if (currentTooltip) {
                         currentTooltip.remove();
                         currentTooltip = null;
                     }
                     
                     // Create tooltip element
-                    tooltipElement = createTooltipElement(tooltipText, false);
-                    positionTooltip(this, tooltipElement);
+                    tooltipElement = document.createElement('div');
+                    tooltipElement.className = 'tooltip show';
+                    tooltipElement.innerHTML = tooltipText;
+                    
+                    // Position tooltip
+                    document.body.appendChild(tooltipElement);
+                    
+                    const rect = this.getBoundingClientRect();
+                    const tooltipRect = tooltipElement.getBoundingClientRect();
+                    
+                    let left = rect.left;
+                    let top = rect.bottom + 10;
+                    
+                    // Adjust if tooltip goes off screen
+                    if (left + tooltipRect.width > window.innerWidth) {
+                        left = window.innerWidth - tooltipRect.width - 10;
+                    }
+                    if (left < 10) {
+                        left = 10;
+                    }
+                    
+                    if (top + tooltipRect.height > window.innerHeight) {
+                        top = rect.top - tooltipRect.height - 10;
+                    }
+                    
+                    tooltipElement.style.left = left + 'px';
+                    tooltipElement.style.top = top + 'px';
+                    tooltipElement.style.position = 'fixed';
                     
                     currentTooltip = tooltipElement;
                 });
                 
-                // Mouse leave - hide hover tooltip
                 tooltip.addEventListener('mouseleave', function() {
-                    isHovering = false;
-                    
-                    setTimeout(() => {
-                        if (!isHovering && currentTooltip && !currentTooltip.classList.contains('pinned')) {
-                            currentTooltip.remove();
-                            currentTooltip = null;
-                        }
-                    }, 100);
-                });
-                
-                // Click - pin/unpin tooltip
-                tooltip.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    e.stopPropagation();
-                    
-                    const tooltipText = this.getAttribute('data-tooltip');
-                    if (!tooltipText) return;
-                    
-                    // If there's already a pinned tooltip, remove it
-                    if (pinnedTooltip) {
-                        pinnedTooltip.remove();
-                        pinnedTooltip = null;
-                    }
-                    
-                    // Remove hover tooltip if exists
-                    if (currentTooltip && !currentTooltip.classList.contains('pinned')) {
+                    if (currentTooltip) {
                         currentTooltip.remove();
                         currentTooltip = null;
                     }
-                    
-                    // Create pinned tooltip
-                    tooltipElement = createTooltipElement(tooltipText, true);
-                    positionTooltip(this, tooltipElement);
-                    
-                    pinnedTooltip = tooltipElement;
-                    currentTooltip = tooltipElement;
                 });
             });
-            
-            // Close pinned tooltip when clicking outside
-            document.addEventListener('click', function(e) {
-                if (pinnedTooltip && !pinnedTooltip.contains(e.target) && !e.target.closest('.skill-tooltip')) {
-                    pinnedTooltip.remove();
-                    pinnedTooltip = null;
-                    currentTooltip = null;
-                }
-            });
-            
-            function createTooltipElement(text, isPinned) {
-                const tooltip = document.createElement('div');
-                tooltip.className = isPinned ? 'tooltip pinned' : 'tooltip show';
-                
-                if (isPinned) {
-                    tooltip.innerHTML = `
-                        <button class="tooltip-close" onclick="this.parentElement.remove(); pinnedTooltip = null; currentTooltip = null;">&times;</button>
-                        ${text}
-                    `;
-                } else {
-                    tooltip.innerHTML = text;
-                }
-                
-                document.body.appendChild(tooltip);
-                return tooltip;
-            }
-            
-            function positionTooltip(triggerElement, tooltipElement) {
-                const rect = triggerElement.getBoundingClientRect();
-                const tooltipRect = tooltipElement.getBoundingClientRect();
-                
-                let left = rect.left;
-                let top = rect.bottom + 10;
-                
-                // Adjust if tooltip goes off screen
-                if (left + tooltipRect.width > window.innerWidth) {
-                    left = window.innerWidth - tooltipRect.width - 10;
-                }
-                if (left < 10) {
-                    left = 10;
-                }
-                
-                if (top + tooltipRect.height > window.innerHeight) {
-                    top = rect.top - tooltipRect.height - 10;
-                }
-                
-                tooltipElement.style.left = left + 'px';
-                tooltipElement.style.top = top + 'px';
-                tooltipElement.style.position = 'fixed';
-            }
         }
 
         // Initialize
