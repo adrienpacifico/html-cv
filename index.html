@@ -151,6 +151,30 @@
             background: #2c5aa0;
         }
 
+        /* Source info */
+        .source-info {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            background: rgb(214, 210, 226);
+            padding: 10px 15px;
+            border-radius: 8px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            z-index: 1000;
+            font-size: 11px;
+            color: #4a5568;
+            max-width: 300px;
+        }
+
+        .source-info a {
+            color: #3182ce;
+            text-decoration: none;
+        }
+
+        .source-info a:hover {
+            text-decoration: underline;
+        }
+
         /* Version link */
         .version-link {
             position: absolute;
@@ -593,6 +617,10 @@
 <body>
     <div class="controls no-print">
         <button onclick="window.print()">Print/Save PDF</button>
+    </div>
+
+    <div class="source-info no-print">
+        Source code of this cv:<br><a href="https://github.com/adrienpacifico/html-cv" target="_blank">https://github.com/adrienpacifico/html-cv</a>
     </div>
 
     <!-- Page 1: Header, Skills, Experience -->
