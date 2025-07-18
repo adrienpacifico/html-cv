@@ -1,0 +1,1049 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Adrien Pacifico - CV (A4 Pages)</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #e5e5e5;
+            padding: 20px;
+            line-height: 1.4;
+        }
+
+        /* A4 page dimensions: 210mm x 297mm */
+        .a4-page {
+            width: 210mm;
+            height: 297mm;
+            background: white;
+            margin: 0 auto 20px;
+            padding: 20mm;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            overflow: hidden;
+            page-break-after: always;
+        }
+
+        .a4-page:last-child {
+            page-break-after: avoid;
+        }
+
+        /* Print styles */
+        @media print {
+            body {
+                background: white;
+                padding: 0;
+            }
+            
+            .a4-page {
+                width: 210mm;
+                height: 297mm;
+                margin: 0;
+                padding: 20mm;
+                box-shadow: none;
+                page-break-after: always;
+            }
+            
+            .a4-page:last-child {
+                page-break-after: avoid;
+            }
+            
+            .no-print {
+                display: none;
+            }
+        }
+
+        /* Controls */
+        .controls {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            z-index: 1000;
+        }
+
+        .controls button {
+            display: block;
+            margin: 5px 0;
+            padding: 10px 20px;
+            background: #3182ce;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 12px;
+            transition: background 0.2s;
+        }
+
+        .controls button:hover {
+            background: #2c5aa0;
+        }
+
+        /* Header styles */
+        .header {
+            text-align: center;
+            margin-bottom: 8mm;
+            border-bottom: 3px solid #3182ce;
+            padding-bottom: 6mm;
+        }
+
+        .header h1 {
+            font-size: 28pt;
+            font-weight: bold;
+            margin-bottom: 3mm;
+            color: #2d3748;
+            background: linear-gradient(135deg, #3182ce 0%, #4299e1 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .header .subtitle {
+            font-size: 14pt;
+            color: #4a5568;
+            margin-bottom: 3mm;
+            font-weight: 500;
+        }
+
+        .header .personal-info {
+            font-size: 10pt;
+            color: #718096;
+            margin-bottom: 2mm;
+        }
+
+        .header .contact-info {
+            font-size: 10pt;
+            color: #4a5568;
+        }
+
+        .header .contact-info a {
+            color: #3182ce;
+            text-decoration: none;
+        }
+
+        /* Section styles */
+        .section {
+            margin-bottom: 6mm;
+        }
+
+        .section h2 {
+            font-size: 16pt;
+            font-weight: bold;
+            margin-bottom: 4mm;
+            color: #2d3748;
+            border-bottom: 2px solid #e2e8f0;
+            padding-bottom: 2mm;
+            background: linear-gradient(135deg, #3182ce 0%, #4299e1 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* Two-column layout for first page */
+        .page-content {
+            display: flex;
+            gap: 6mm;
+            height: 100%;
+        }
+
+        .sidebar {
+            flex: 0 0 35%;
+        }
+
+        .main-content {
+            flex: 1;
+        }
+
+        /* Skills styles */
+        .skill-item {
+            margin-bottom: 4mm;
+            break-inside: avoid;
+        }
+
+        .skill-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1mm;
+        }
+
+        .skill-name {
+            font-size: 11pt;
+            font-weight: 600;
+            color: #2d3748;
+            cursor: help;
+            position: relative;
+        }
+
+        /* Tooltip styles */
+        .skill-tooltip {
+            position: relative;
+            cursor: help;
+        }
+
+        .tooltip {
+            position: absolute;
+            background: #2d3748;
+            color: white;
+            padding: 8px 12px;
+            border-radius: 6px;
+            font-size: 9pt;
+            font-weight: 400;
+            line-height: 1.4;
+            width: 250px;
+            z-index: 1000;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s, visibility 0.3s;
+            pointer-events: none;
+        }
+
+        .tooltip::before {
+            content: '';
+            position: absolute;
+            top: -6px;
+            left: 20px;
+            width: 0;
+            height: 0;
+            border-left: 6px solid transparent;
+            border-right: 6px solid transparent;
+            border-bottom: 6px solid #2d3748;
+        }
+
+        .tooltip.show {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .skill-experience {
+            font-size: 9pt;
+            color: #718096;
+        }
+
+        .skill-bar-container {
+            position: relative;
+            height: 6px;
+            background: #e2e8f0;
+            border-radius: 3px;
+            overflow: hidden;
+        }
+
+        .skill-bar {
+            height: 100%;
+            background: linear-gradient(90deg, #3182ce 0%, #4299e1 100%);
+            border-radius: 3px;
+            transition: width 2s ease-in-out;
+            width: 0%;
+        }
+
+        .skill-percentage {
+            position: absolute;
+            right: 0;
+            top: -18px;
+            font-size: 9pt;
+            color: #4a5568;
+            font-weight: 500;
+        }
+
+        /* Tools badges */
+        .tools-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2mm;
+            margin-top: 2mm;
+        }
+
+        .tools-list img {
+            height: 20px;
+            border-radius: 3px;
+            transition: transform 0.3s ease, filter 0.3s ease;
+            cursor: pointer;
+        }
+
+        .tools-list a {
+            text-decoration: none;
+        }
+
+        .tools-list a:hover img,
+        .tools-list img:hover {
+            transform: translateY(-2px) scale(1.05);
+            filter: brightness(1.1) contrast(1.1);
+            transition: all 0.3s ease;
+        }
+
+        /* Education styles */
+        .education-item {
+            margin-bottom: 4mm;
+            break-inside: avoid;
+        }
+
+        .degree {
+            font-size: 11pt;
+            font-weight: 600;
+            color: #2d3748;
+            margin-bottom: 1mm;
+        }
+
+        .institution {
+            font-size: 10pt;
+            color: #4a5568;
+            margin-bottom: 1mm;
+        }
+
+        .job-date {
+            font-size: 9pt;
+            color: #718096;
+            font-style: italic;
+        }
+
+        /* Experience styles */
+        .experience-item {
+            margin-bottom: 6mm;
+            break-inside: avoid;
+            page-break-inside: avoid;
+        }
+
+        .job-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 2mm;
+        }
+
+        .job-title {
+            font-size: 13pt;
+            font-weight: bold;
+            color: #2d3748;
+        }
+
+        .company {
+            font-size: 12pt;
+            color: #3182ce;
+            font-weight: 600;
+            margin-bottom: 2mm;
+        }
+
+        .description {
+            font-size: 10pt;
+            color: #4a5568;
+            line-height: 1.5;
+            margin-bottom: 3mm;
+        }
+
+        .description ul {
+            margin-left: 4mm;
+            margin-top: 2mm;
+        }
+
+        .description li {
+            margin-bottom: 1mm;
+        }
+
+        .tools-used {
+            margin-top: 3mm;
+        }
+
+        .tools-used strong {
+            font-size: 10pt;
+            color: #2d3748;
+            display: block;
+            margin-bottom: 2mm;
+        }
+
+        /* Other experiences */
+        .other-experience {
+            margin-bottom: 3mm;
+            font-size: 10pt;
+            color: #4a5568;
+            line-height: 1.4;
+        }
+
+        .other-experience strong {
+            color: #2d3748;
+        }
+
+        /* Publication styles */
+        .publication {
+            break-inside: avoid;
+        }
+
+        .publication-title {
+            font-size: 11pt;
+            font-weight: 600;
+            color: #2d3748;
+            margin-bottom: 1mm;
+        }
+
+        .publication-authors {
+            font-size: 10pt;
+            color: #4a5568;
+            margin-bottom: 1mm;
+        }
+
+        .publication-details {
+            font-size: 9pt;
+            color: #718096;
+        }
+
+        /* Responsive adjustments */
+        @media screen and (max-width: 900px) {
+            .a4-page {
+                width: 100%;
+                height: auto;
+                min-height: 297mm;
+            }
+            
+            .page-content {
+                flex-direction: column;
+            }
+            
+            .sidebar {
+                flex: none;
+            }
+        }
+
+        /* Page break utilities */
+        .page-break {
+            page-break-before: always;
+            break-before: page;
+        }
+
+        .no-break {
+            page-break-inside: avoid;
+            break-inside: avoid;
+        }
+
+        /* Stack Overflow widget */
+        .stackoverflow-widget {
+            text-align: center;
+        }
+
+        .stackoverflow-widget img {
+            max-width: 100%;
+            height: auto;
+        }
+    </style>
+</head>
+<body>
+    <div class="controls no-print">
+        <button onclick="window.print()">Print/Save PDF</button>
+        <button onclick="toggleGuides()">Toggle Guides</button>
+        <button onclick="animateSkillBars()">Animate Skills</button>
+    </div>
+
+    <!-- Page 1: Header, Skills, Tools, Education -->
+    <div class="a4-page" id="page1">
+        <div class="header">
+            <h1>Adrien Pacifico, Ph.D.</h1>
+            <div class="subtitle">Data Engineer/Data Scientist</div>
+            
+            <div class="personal-info">
+                <span>🇫🇷 French</span> • 
+                <span>🗣️ French (native), English (fluent)</span> • 
+                <span>📍 Marseille, France</span>
+            </div>
+            
+            <div class="contact-info">
+                <span>📞 <a href="tel:+33781361856">+33 7 81 36 18 56</a></span> • 
+                <span>📧 <a href="mailto:adrienpacificopro@gmail.com">adrienpacificopro@gmail.com</a></span><br>
+                <span>🌐 <a href="https://adrienpacifico.github.io" target="_blank">adrienpacifico.github.io</a></span> • 
+                <span><a href="https://github.com/adrienpacifico" target="_blank">GitHub: adrienpacifico</a></span>
+            </div>
+        </div>
+
+        <div class="page-content">
+            <div class="sidebar">
+                <div class="section">
+                    <h2>Technical Skills</h2>
+                    
+                    <div class="skill-item">
+                        <div class="skill-header">
+                            <span class="skill-name skill-tooltip" data-tooltip="Expert in Python with over 10 years of experience. Proficient in data manipulation, analysis, and automation. However, I am still eager to learn more, either about the newest and best practices of the language, or advanced Python intricacies that I do not know.">Python</span>
+                            <span class="skill-experience">10+ years</span>
+                        </div>
+                        <div class="skill-bar-container">
+                            <div class="skill-bar" data-skill="85"></div>
+                            <div class="skill-percentage">85%</div>
+                        </div>
+                    </div>
+                    
+                    <div class="skill-item">
+                        <div class="skill-header">
+                            <span class="skill-name skill-tooltip" data-tooltip="Expert in creating compelling data visualizations that tell stories and drive business decisions. Skilled in interactive dashboards with Plotly Dash, statistical graphics with Bokeh, and publication-quality plots with Matplotlib/Seaborn. Experience with modern web-based visualization libraries and best practices in chart design, color theory, and accessibility.">Data Visualization</span>
+                            <span class="skill-experience">10+ years</span>
+                        </div>
+                        <div class="skill-bar-container">
+                            <div class="skill-bar" data-skill="85"></div>
+                            <div class="skill-percentage">85%</div>
+                        </div>
+                    </div>
+                    
+                    <div class="skill-item">
+                        <div class="skill-header">
+                            <span class="skill-name skill-tooltip" data-tooltip="Expert in tabular machine learning with deep expertise in boosting algorithms (LightGBM, XGBoost) for both regression and classification tasks. Skilled in hyperparameter optimization using Optuna, model lifecycle management with MLflow, and model interpretability through SHAP. Most importantly, rigorous project scoping, finding features that hold signal, proper train/validation/test data separation, and performance metrics in line with final business goals often determine project success more than anything else.">Machine Learning</span>
+                            <span class="skill-experience">6 years</span>
+                        </div>
+                        <div class="skill-bar-container">
+                            <div class="skill-bar" data-skill="90"></div>
+                            <div class="skill-percentage">90%</div>
+                        </div>
+                    </div>
+                    
+                    <div class="skill-item">
+                        <div class="skill-header">
+                            <span class="skill-name skill-tooltip" data-tooltip="dbt provides unmatched capabilities for data lineage, testing, and documentation in data transformation workflows. No other Python-based solution achieves this level of integration so seamlessly. Its SQL-based approach offers a low learning curve for business-oriented data analysts while maintaining software engineering best practices. I'm particularly fond of this solution, having used it successfully in both professional and personal projects.">DBT</span>
+                            <span class="skill-experience">14 months</span>
+                        </div>
+                        <div class="skill-bar-container">
+                            <div class="skill-bar" data-skill="70"></div>
+                            <div class="skill-percentage">70%</div>
+                        </div>
+                    </div>
+                    
+                    <div class="skill-item">
+                        <div class="skill-header">
+                            <span class="skill-name skill-tooltip" data-tooltip="Database querying and management across PostgreSQL, Oracle, and ClickHouse. Proficient in complex joins, window functions, CTEs, performance optimization, and data warehousing.">SQL</span>
+                            <span class="skill-experience">10+ years</span>
+                        </div>
+                        <div class="skill-bar-container">
+                            <div class="skill-bar" data-skill="70"></div>
+                            <div class="skill-percentage">70%</div>
+                        </div>
+                    </div>
+                    
+                    <div class="skill-item">
+                        <div class="skill-header">
+                            <span class="skill-name skill-tooltip" data-tooltip="Google Cloud Platform is my cloud platform of choice. Familiar with BigQuery, Cloud Storage, Compute Engine, Cloud Functions, and data pipeline orchestration with Cloud Composer and Pub/Sub. Completed the official Google Cloud Data Engineering series certification.">Google Cloud</span>
+                            <span class="skill-experience">1 year</span>
+                        </div>
+                        <div class="skill-bar-container">
+                            <div class="skill-bar" data-skill="60"></div>
+                            <div class="skill-percentage">60%</div>
+                        </div>
+                    </div>
+                    
+                    <div class="skill-item">
+                        <div class="skill-header">
+                            <span class="skill-name skill-tooltip" data-tooltip="Machine Learning Operations including model versioning with MLFlow, containerization with Docker, CI/CD pipelines, model monitoring, and deployment automation across cloud environments.">MLOps</span>
+                            <span class="skill-experience">5 years</span>
+                        </div>
+                        <div class="skill-bar-container">
+                            <div class="skill-bar" data-skill="70"></div>
+                            <div class="skill-percentage">70%</div>
+                        </div>
+                    </div>
+                    
+                    <div class="skill-item">
+                        <div class="skill-header">
+                            <span class="skill-name skill-tooltip" data-tooltip="Deep expertise in French open data ecosystem. Interest since 2014 during my internship at ETALAB, the French government agency responsible for open data policy and data.gouv.fr platform. Intimate knowledge of available datasets from major French institutions (INSEE, data.gouv.fr, Ademe, etc) and their API access patterns. Skilled in both public API integration and private data services. When APIs are unavailable or insufficient, I have skills in web scraping techniques to extract structured data from various sources.">Data Acquisition</span>
+                            <span class="skill-experience">6 years</span>
+                        </div>
+                        <div style="margin-bottom: 2mm;">
+                            <span style="font-size: 8pt; color: #718096;">Open Data / Web Scraping / API</span>
+                        </div>
+                        <div class="skill-bar-container">
+                            <div class="skill-bar" data-skill="60"></div>
+                            <div class="skill-percentage">60%</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="section">
+                    <h2>Tools</h2>
+                    <div class="tools-list">
+                        <img src="https://img.shields.io/badge/Git-2c3e50?style=flat&logo=git&logoColor=F05032" alt="Git">
+                        <img src="https://img.shields.io/badge/GitLab-2c3e50?style=flat&logo=gitlab&logoColor=FC6D26" alt="GitLab">
+                        <img src="https://custom-icon-badges.demolab.com/badge/VS_Code-2c3e50?style=flat&logo=vsc&logoColor=007ACC" alt="VS Code">
+                        <img src="https://img.shields.io/badge/Terminal-2c3e50?style=flat&logo=gnubash&logoColor=4EAA25" alt="Terminal">
+                        <img src="https://img.shields.io/badge/Linux-2c3e50?style=flat&logo=linux&logoColor=FCC624" alt="Linux">
+                        <img src="https://img.shields.io/badge/macOS-2c3e50?style=flat&logo=apple&logoColor=white" alt="macOS">
+                    </div>
+                </div>
+
+                <div class="section">
+                    <h2>Stack Overflow</h2>
+                    <div class="stackoverflow-widget">
+                        <a href="https://stackoverflow.com/users/5304366/adrien-pacifico" target="_blank">
+                            <img src="https://stackoverflow.com/users/flair/5304366.png?theme=dark" alt="Adrien Pacifico's Stack Overflow profile" style="width: auto; height: auto; max-width: 208px;">
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="main-content">
+                <div class="section">
+                    <h2>Summary</h2>
+                    <p class="description">
+                        I am a data scientist/data engineer with a strong affinity for structured data, with a background in economics focused on statistical and causal modeling. I enjoy both creating statistical models and working on data engineering aspects. My expertise spans predictive (machine learning) and causal (econometrics) models, as well as data acquisition and transformation, pipeline automation, and data quality management.
+                    </p>
+                    <p class="description">
+                        I am particularly interested in roles that combine business intelligence and analytical engineering but remain open to exploring new domains. My favorite cloud environment is Google Cloud Platform (GCP), and I am also comfortable with AWS. While I have less experience in Azure, I am confident in my ability to adapt and learn quickly.
+                    </p>
+                </div>
+
+                <div class="section">
+                    <h2>Experience</h2>
+                    
+                    <div class="experience-item no-break">
+                        <div class="job-header">
+                            <div class="job-title">Data Engineer</div>
+                            <div class="job-date">05-2025 (2 months)</div>
+                        </div>
+                        <div class="company">Free Pro</div>
+                        <div class="description">
+                            <p>Hired to migrate a Talend/PostGre data analytics stack to one based on ClickHouse. I developed a proof of concept where I reproduced key metrics of the company.</p>
+                            <ul>
+                                <li><strong>Data Ingestion:</strong> Export to parquet then ingestion with native ClickHouse. (Experimented with PostGre CDC with PeerDB)</li>
+                                <li><strong>Data Transformation:</strong> dbt with dbt-clickhouse plugin (VS Code + dbt Power User in the IDE)</li>
+                                <li><strong>Data Product:</strong> A small dashboard in dash replicating key metrics of the company</li>
+                            </ul>
+                            <p>The proof of concept was appreciated especially for the ability to deploy documentation at the table and column level, clarity of the data lineage, computational speed of the solution, and ability to test and modularize code.</p>
+                        </div>
+                        <div class="tools-used">
+                            <strong>Tools Used:</strong>
+                            <div class="tools-list">
+                                <img src="https://img.shields.io/badge/ClickHouse-2c3e50?style=flat&logo=clickhouse&logoColor=FFCC02" alt="ClickHouse">
+                                <img src="https://img.shields.io/badge/DBT-2c3e50?style=flat&logo=dbt&logoColor=FF694B" alt="DBT">
+                                <img src="https://img.shields.io/badge/dlt-2c3e50?style=flat&logo=python&logoColor=3776AB" alt="dlt">
+                                <img src="https://img.shields.io/badge/Dagster-2c3e50?style=flat&logo=dagster&logoColor=white" alt="Dagster">
+                                <img src="https://img.shields.io/badge/PeerDB-2c3e50?style=flat&logo=database&logoColor=white" alt="PeerDB">
+                                <img src="https://img.shields.io/badge/PostgreSQL-2c3e50?style=flat&logo=postgresql&logoColor=4169E1" alt="PostgreSQL">
+                                <img src="https://img.shields.io/badge/Podman-2c3e50?style=flat&logo=podman&logoColor=892CA0" alt="Podman">
+                                <img src="https://img.shields.io/badge/uv-2c3e50?style=flat&logo=python&logoColor=3776AB" alt="uv">
+                                <img src="https://img.shields.io/badge/GitLab-2c3e50?style=flat&logo=gitlab&logoColor=FC6D26" alt="GitLab">
+                                <img src="https://img.shields.io/badge/GitLab_CI/CD-2c3e50?style=flat&logo=gitlab&logoColor=FC6D26" alt="GitLab CI/CD">
+                                <img src="https://img.shields.io/badge/dbt_Power_User-2c3e50?style=flat&logo=dbt&logoColor=FF694B" alt="dbt Power User">
+                                <img src="https://img.shields.io/badge/Pandas-2c3e50?style=flat&logo=pandas&logoColor=150458" alt="Pandas">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="experience-item no-break">
+                        <div class="job-header">
+                            <div class="job-title">Data Scientist (freelance)</div>
+                            <div class="job-date">09/2023 - 05/2025</div>
+                        </div>
+                        <div class="company">Holmium Consulting</div>
+                        <div class="description">
+                            I developed and deployed an ML model that predicts next day production of electrical windmill parks. The production model automatically queries next day weather predictions of multiple models (AROME, DWD, etc), fetch a trained LightGBM model on an MLFlow server deployed on AWS, and post the prediction to the business client through its proprietary API.
+                        </div>
+                        <div class="tools-used">
+                            <strong>Tools Used:</strong>
+                            <div class="tools-list">
+                                <img src="https://img.shields.io/badge/MLFlow-2c3e50?style=flat&logo=mlflow&logoColor=0194E2" alt="MLFlow">
+                                <img src="https://img.shields.io/badge/LightGBM-2c3e50?style=flat&logo=lightgbm&logoColor=white" alt="LightGBM">
+                                <img src="https://custom-icon-badges.demolab.com/badge/AWS-2c3e50?style=flat&logo=aws&logoColor=FF9900" alt="AWS">
+                                <img src="https://img.shields.io/badge/Docker-2c3e50?style=flat&logo=docker&logoColor=2496ED" alt="Docker">
+                                <img src="https://img.shields.io/badge/GitLab-2c3e50?style=flat&logo=gitlab&logoColor=FC6D26" alt="GitLab">
+                                <img src="https://img.shields.io/badge/Poetry-2c3e50?style=flat&logo=poetry&logoColor=60A5FA" alt="Poetry">
+                                <img src="https://img.shields.io/badge/Meteomatics_API-2c3e50?style=flat&logo=api&logoColor=white" alt="Meteomatics API">
+                                <img src="https://img.shields.io/badge/Kedro-2c3e50?style=flat&logo=kedro&logoColor=white" alt="Kedro">
+                                <img src="https://img.shields.io/badge/Pandas-2c3e50?style=flat&logo=pandas&logoColor=150458" alt="Pandas">
+                                <img src="https://img.shields.io/badge/SHAP-2c3e50?style=flat&logo=python&logoColor=3776AB" alt="SHAP">
+                                <img src="https://img.shields.io/badge/Optuna-2c3e50?style=flat&logo=optuna&logoColor=white" alt="Optuna">
+                                <img src="https://img.shields.io/badge/Scikit_Learn-2c3e50?style=flat&logo=scikitlearn&logoColor=F7931E" alt="Scikit-learn">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="experience-item no-break">
+                        <div class="job-header">
+                            <div class="job-title">Teacher in Data Science (freelance)</div>
+                            <div class="job-date">10/2023 - 06/2024</div>
+                        </div>
+                        <div class="company">Albert School</div>
+                        <div class="description">
+                            I taught different subjects for a year at Albert School including data wrangling with pandas, introduction to Python, data acquisition and API usage, coding tools (venv, linter, docker, make), and plotting tools.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Page 2: Recent Experience and Education -->
+    <div class="a4-page" id="page2">
+        <div class="page-content">
+            <div class="sidebar">
+                <div class="section">
+                    <h2>Education</h2>
+                    <div class="education-item">
+                        <div class="degree">Ph.D. in Economics</div>
+                        <div class="institution">Aix-Marseille School of Economics</div>
+                        <div class="job-date">09/2014 - 06/2019</div>
+                        <div style="margin-top: 2mm; font-size: 9pt; color: #4a5568;">Thesis: Three Empirical Essays in French Household Taxation</div>
+                    </div>
+                    <div class="education-item">
+                        <div class="degree">Magistère Ingénieur économiste</div>
+                        <div class="institution">Aix-Marseille School of Economics</div>
+                        <div class="job-date">10/2012 - 07/2014</div>
+                        <div style="margin-top: 2mm; font-size: 9pt; color: #4a5568;">Public Policy Evaluation</div>
+                    </div>
+                    <div class="education-item">
+                        <div class="degree">BSc Economics (Exchange)</div>
+                        <div class="institution">Bishop's University</div>
+                        <div class="job-date">09/2012 - 12/2012</div>
+                    </div>
+                    <div class="education-item">
+                        <div class="degree">Licence Économie Management (EM)</div>
+                        <div class="institution">Aix-Marseille University</div>
+                        <div class="job-date">2009 - 2012</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="main-content">
+                <div class="section">
+                    <h2>Experience</h2>
+                    
+                    <div class="experience-item no-break">
+                        <div class="job-header">
+                            <div class="job-title">Data Engineer</div>
+                            <div class="job-date">05-2025 (2 months)</div>
+                        </div>
+                        <div class="company">Free Pro</div>
+                        <div class="description">
+                            <p>Hired to migrate a Talend/PostGre data analytics stack to one based on ClickHouse. I developed a proof of concept where I reproduced key metrics of the company.</p>
+                            <ul>
+                                <li><strong>Data Ingestion:</strong> Export to parquet then ingestion with native ClickHouse. (Experimented with PostGre CDC with PeerDB)</li>
+                                <li><strong>Data Transformation:</strong> dbt with dbt-clickhouse plugin (VS Code + dbt Power User in the IDE)</li>
+                                <li><strong>Data Product:</strong> A small dashboard in dash replicating key metrics of the company</li>
+                            </ul>
+                            <p>The proof of concept was appreciated especially for the ability to deploy documentation at the table and column level, clarity of the data lineage, computational speed of the solution, and ability to test and modularize code.</p>
+                        </div>
+                        <div class="tools-used">
+                            <strong>Tools Used:</strong>
+                            <div class="tools-list">
+                                <img src="https://img.shields.io/badge/ClickHouse-2c3e50?style=flat&logo=clickhouse&logoColor=FFCC02" alt="ClickHouse">
+                                <img src="https://img.shields.io/badge/DBT-2c3e50?style=flat&logo=dbt&logoColor=FF694B" alt="DBT">
+                                <img src="https://img.shields.io/badge/dlt-2c3e50?style=flat&logo=python&logoColor=3776AB" alt="dlt">
+                                <img src="https://img.shields.io/badge/Dagster-2c3e50?style=flat&logo=dagster&logoColor=white" alt="Dagster">
+                                <img src="https://img.shields.io/badge/PeerDB-2c3e50?style=flat&logo=database&logoColor=white" alt="PeerDB">
+                                <img src="https://img.shields.io/badge/PostgreSQL-2c3e50?style=flat&logo=postgresql&logoColor=4169E1" alt="PostgreSQL">
+                                <img src="https://img.shields.io/badge/Podman-2c3e50?style=flat&logo=podman&logoColor=892CA0" alt="Podman">
+                                <img src="https://img.shields.io/badge/uv-2c3e50?style=flat&logo=python&logoColor=3776AB" alt="uv">
+                                <img src="https://img.shields.io/badge/GitLab-2c3e50?style=flat&logo=gitlab&logoColor=FC6D26" alt="GitLab">
+                                <img src="https://img.shields.io/badge/GitLab_CI/CD-2c3e50?style=flat&logo=gitlab&logoColor=FC6D26" alt="GitLab CI/CD">
+                                <img src="https://img.shields.io/badge/dbt_Power_User-2c3e50?style=flat&logo=dbt&logoColor=FF694B" alt="dbt Power User">
+                                <img src="https://img.shields.io/badge/Pandas-2c3e50?style=flat&logo=pandas&logoColor=150458" alt="Pandas">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="experience-item no-break">
+                        <div class="job-header">
+                            <div class="job-title">Data Scientist (freelance)</div>
+                            <div class="job-date">09/2023 - 05/2025</div>
+                        </div>
+                        <div class="company">Holmium Consulting</div>
+                        <div class="description">
+                            I developed and deployed an ML model that predicts next day production of electrical windmill parks. The production model automatically queries next day weather predictions of multiple models (AROME, DWD, etc), fetch a trained LightGBM model on an MLFlow server deployed on AWS, and post the prediction to the business client through its proprietary API.
+                        </div>
+                        <div class="tools-used">
+                            <strong>Tools Used:</strong>
+                            <div class="tools-list">
+                                <img src="https://img.shields.io/badge/MLFlow-2c3e50?style=flat&logo=mlflow&logoColor=0194E2" alt="MLFlow">
+                                <img src="https://img.shields.io/badge/LightGBM-2c3e50?style=flat&logo=lightgbm&logoColor=white" alt="LightGBM">
+                                <img src="https://custom-icon-badges.demolab.com/badge/AWS-2c3e50?style=flat&logo=aws&logoColor=FF9900" alt="AWS">
+                                <img src="https://img.shields.io/badge/Docker-2c3e50?style=flat&logo=docker&logoColor=2496ED" alt="Docker">
+                                <img src="https://img.shields.io/badge/GitLab-2c3e50?style=flat&logo=gitlab&logoColor=FC6D26" alt="GitLab">
+                                <img src="https://img.shields.io/badge/Poetry-2c3e50?style=flat&logo=poetry&logoColor=60A5FA" alt="Poetry">
+                                <img src="https://img.shields.io/badge/Meteomatics_API-2c3e50?style=flat&logo=api&logoColor=white" alt="Meteomatics API">
+                                <img src="https://img.shields.io/badge/Kedro-2c3e50?style=flat&logo=kedro&logoColor=white" alt="Kedro">
+                                <img src="https://img.shields.io/badge/Pandas-2c3e50?style=flat&logo=pandas&logoColor=150458" alt="Pandas">
+                                <img src="https://img.shields.io/badge/SHAP-2c3e50?style=flat&logo=python&logoColor=3776AB" alt="SHAP">
+                                <img src="https://img.shields.io/badge/Optuna-2c3e50?style=flat&logo=optuna&logoColor=white" alt="Optuna">
+                                <img src="https://img.shields.io/badge/Scikit_Learn-2c3e50?style=flat&logo=scikitlearn&logoColor=F7931E" alt="Scikit-learn">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Page 3: Earlier Experience -->
+    <div class="a4-page" id="page3">
+        <div class="section">
+            <h2>Experience (continued)</h2>
+            
+            <div class="experience-item no-break">
+                <div class="job-header">
+                    <div class="job-title">Data Scientist (permanent position)</div>
+                    <div class="job-date">01/2021 - 01/2023</div>
+                </div>
+                <div class="company">NOVRH</div>
+                <div class="description">
+                    I worked in the R&D department where I developed supervised and unsupervised machine learning models to predict employee absenteeism and errors in payslips. I also developed the first real-time dashboard of the company (plotly dash), which required querying data from multiple sources (ERP undocumented database, GitLab issues, user activity logs). This dashboard is still used in production and is instrumental for the third-party application support strategy.
+                </div>
+                <div class="tools-used">
+                    <strong>Tools Used:</strong>
+                    <div class="tools-list">
+                        <img src="https://img.shields.io/badge/Plotly-2c3e50?style=flat&logo=plotly&logoColor=3F4F75" alt="Plotly Dash">
+                        <img src="https://img.shields.io/badge/Docker-2c3e50?style=flat&logo=docker&logoColor=2496ED" alt="Docker">
+                        <img src="https://img.shields.io/badge/GitLab_CI/CD-2c3e50?style=flat&logo=gitlab&logoColor=FC6D26" alt="GitLab CI/CD">
+                        <img src="https://img.shields.io/badge/Pytest-2c3e50?style=flat&logo=pytest&logoColor=009FE3" alt="Pytest">
+                        <img src="https://img.shields.io/badge/MLFlow-2c3e50?style=flat&logo=mlflow&logoColor=0194E2" alt="MLFlow">
+                        <img src="https://img.shields.io/badge/XGBoost-2c3e50?style=flat&logo=xgboost&logoColor=white" alt="XGBoost">
+                        <img src="https://img.shields.io/badge/Optuna-2c3e50?style=flat&logo=optuna&logoColor=white" alt="Optuna">
+                        <img src="https://img.shields.io/badge/MLJar-2c3e50?style=flat&logo=python&logoColor=3776AB" alt="MLJar">
+                        <img src="https://img.shields.io/badge/Pandas-2c3e50?style=flat&logo=pandas&logoColor=150458" alt="Pandas">
+                        <img src="https://custom-icon-badges.demolab.com/badge/Oracle_SQL-2c3e50?style=flat&logo=oracle&logoColor=F80000" alt="Oracle SQL">
+                        <img src="https://img.shields.io/badge/CRON-2c3e50?style=flat&logo=linux&logoColor=FCC624" alt="CRON">
+                    </div>
+                </div>
+            </div>
+
+            <div class="experience-item no-break">
+                <div class="job-header">
+                    <div class="job-title">Post Doctoral Researcher</div>
+                    <div class="job-date">06/2019 - 12/2020</div>
+                </div>
+                <div class="company">Reproducibility certifier HEC Paris & ETH Zurich</div>
+                <div class="description">
+                    After my PhD, I completed two contracts: one with cascad.tech, where I helped reproduce and certify scientific publications, and another with ETH Zurich, where I worked on an income mobility project.
+                </div>
+                <div class="tools-used">
+                    <strong>Tools Used:</strong>
+                    <div class="tools-list">
+                        <img src="https://img.shields.io/badge/CASD-2c3e50?style=flat&logo=database&logoColor=white" alt="CASD">
+                        <img src="https://img.shields.io/badge/R-2c3e50?style=flat&logo=r&logoColor=276DC3" alt="R">
+                        <img src="https://img.shields.io/badge/Git-2c3e50?style=flat&logo=git&logoColor=F05032" alt="Git">
+                        <img src="https://img.shields.io/badge/Docker-2c3e50?style=flat&logo=docker&logoColor=2496ED" alt="Docker">
+                    </div>
+                </div>
+            </div>
+
+            <div class="experience-item no-break">
+                <div class="job-header">
+                    <div class="job-title">PhD Candidate</div>
+                    <div class="job-date">09/2014 - 06/2019</div>
+                </div>
+                <div class="company">Aix-Marseille School of Economics</div>
+                <div class="description">
+                    <p>During my PhD, I worked on the empirical economics of taxation. My thesis is composed of three chapters: The first one focuses on the impact of tax frequency and shows that increasing the pace at which a citizen is taxed can significantly improve their welfare. The second one focuses on the optimal allocation of children on tax returns, and it shows that couples who optimize tend to marry more the following year (while those who don't tend to divorce more). The third one studied the empirical implications of diminished tax breaks related to children (triple-difference estimation).</p>
+                </div>
+                <div class="tools-used">
+                    <strong>Tools Used:</strong>
+                    <div class="tools-list">
+                        <img src="https://img.shields.io/badge/Python-2c3e50?style=flat&logo=python&logoColor=3776AB" alt="Python">
+                        <img src="https://img.shields.io/badge/Pandas-2c3e50?style=flat&logo=pandas&logoColor=150458" alt="Pandas">
+                        <img src="https://img.shields.io/badge/Jupyter-2c3e50?style=flat&logo=jupyter&logoColor=F37626" alt="Jupyter Notebooks">
+                        <img src="https://img.shields.io/badge/Statsmodels-2c3e50?style=flat&logo=python&logoColor=3776AB" alt="Statsmodels">
+                        <img src="https://img.shields.io/badge/GitHub-2c3e50?style=flat&logo=github&logoColor=white" alt="GitHub">
+                        <img src="https://img.shields.io/badge/LaTeX-2c3e50?style=flat&logo=latex&logoColor=008080" alt="LaTeX">
+                        <img src="https://img.shields.io/badge/Matlab-2c3e50?style=flat&logo=mathworks&logoColor=0076A8" alt="Matlab">
+                        <img src="https://img.shields.io/badge/R-2c3e50?style=flat&logo=r&logoColor=276DC3" alt="R">
+                        <img src="https://img.shields.io/badge/OpenFisca-2c3e50?style=flat&logo=python&logoColor=3776AB" alt="OpenFisca">
+                        <img src="https://img.shields.io/badge/CASD-2c3e50?style=flat&logo=database&logoColor=white" alt="CASD">
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2>Other Experiences</h2>
+                <div class="other-experience">
+                    <strong>European Commission</strong> (2023-Present): Microsimulation, updating parameters for France
+                </div>
+                <div class="other-experience">
+                    <strong>lelynx.fr</strong> (03/2023): Data Scientist, AB testing
+                </div>
+                <div class="other-experience">
+                    <strong>Aix-Marseille University (DESU)</strong> (03/2020-Present): Teaching Python for data science & Data acquisition through API call & webscraping
+                </div>
+                <div class="other-experience">
+                    <strong>Kesk'IA</strong> (03/2023-07/2023): Mentor for computer vision algorithm deployment for street litter detection
+                </div>
+                <div class="other-experience">
+                    <strong>ETALAB</strong> (03/2014-06/2014): OpenFisca Contributor - Developed the microsimulation software OpenFisca
+                </div>
+                <div class="other-experience">
+                    <strong>Bacardi Geneva</strong> (06/2012-08/2012): Management Control - Developed VBA excel macro to monitor FTE
+                </div>
+            </div>
+
+            <div class="section">
+                <h2>Publication</h2>
+                <div class="publication">
+                    <div class="publication-title">Tax Minimization by French Cohabiting Couples</div>
+                    <div class="publication-authors">Olivier Bargain, Damien Echevin, Audrey Etienne, Nicolas Moreau, and Adrien Pacifico</div>
+                    <div class="publication-details">National Tax Journal Volume 75, Number 2, June 2022<br>DOI: 10.1086/719427</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Animate skill bars
+        function animateSkillBars() {
+            const skillBars = document.querySelectorAll('.skill-bar');
+            
+            skillBars.forEach((bar, index) => {
+                const skillLevel = bar.getAttribute('data-skill');
+                
+                // Start with 0 width
+                bar.style.width = '0%';
+                
+                // Animate to actual width with staggered effect
+                setTimeout(() => {
+                    bar.style.width = skillLevel + '%';
+                }, index * 150 + 500);
+            });
+        }
+
+        // Toggle visual guides
+        function toggleGuides() {
+            const pages = document.querySelectorAll('.a4-page');
+            pages.forEach(page => {
+                if (page.style.outline) {
+                    page.style.outline = '';
+                } else {
+                    page.style.outline = '2px dashed #3182ce';
+                    page.style.outlineOffset = '-2px';
+                }
+            });
+        }
+
+        // Check page overflow
+        function checkPageOverflow() {
+            const pages = document.querySelectorAll('.a4-page');
+            pages.forEach((page, index) => {
+                const pageHeight = page.scrollHeight;
+                const maxHeight = 297 * 3.7795; // 297mm to pixels
+                
+                if (pageHeight > maxHeight) {
+                    console.warn(`Page ${index + 1} content exceeds A4 height by ${pageHeight - maxHeight}px`);
+                    page.style.border = '2px solid red';
+                } else {
+                    page.style.border = '';
+                }
+            });
+        }
+
+        // Auto-fit content (basic implementation)
+        function autoFitContent() {
+            const pages = document.querySelectorAll('.a4-page');
+            pages.forEach(page => {
+                const pageHeight = page.scrollHeight;
+                const maxHeight = 297 * 3.7795;
+                
+                if (pageHeight > maxHeight) {
+                    // Reduce font sizes slightly
+                    const textElements = page.querySelectorAll('p, li, .description');
+                    textElements.forEach(element => {
+                        const currentSize = window.getComputedStyle(element).fontSize;
+                        const newSize = parseFloat(currentSize) * 0.95;
+                        element.style.fontSize = newSize + 'px';
+                    });
+                }
+            });
+        }
+
+        // Initialize tooltips
+        function initializeTooltips() {
+            const tooltips = document.querySelectorAll('.skill-tooltip');
+            let currentTooltip = null;
+            
+            tooltips.forEach(tooltip => {
+                let tooltipElement = null;
+                
+                tooltip.addEventListener('mouseenter', function() {
+                    const tooltipText = this.getAttribute('data-tooltip');
+                    if (!tooltipText) return;
+                    
+                    // Remove any existing tooltip
+                    if (currentTooltip) {
+                        currentTooltip.remove();
+                        currentTooltip = null;
+                    }
+                    
+                    // Create tooltip element
+                    tooltipElement = document.createElement('div');
+                    tooltipElement.className = 'tooltip show';
+                    tooltipElement.innerHTML = tooltipText;
+                    
+                    // Position tooltip
+                    document.body.appendChild(tooltipElement);
+                    
+                    const rect = this.getBoundingClientRect();
+                    const tooltipRect = tooltipElement.getBoundingClientRect();
+                    
+                    let left = rect.left;
+                    let top = rect.bottom + 10;
+                    
+                    // Adjust if tooltip goes off screen
+                    if (left + tooltipRect.width > window.innerWidth) {
+                        left = window.innerWidth - tooltipRect.width - 10;
+                    }
+                    if (left < 10) {
+                        left = 10;
+                    }
+                    
+                    if (top + tooltipRect.height > window.innerHeight) {
+                        top = rect.top - tooltipRect.height - 10;
+                    }
+                    
+                    tooltipElement.style.left = left + 'px';
+                    tooltipElement.style.top = top + 'px';
+                    tooltipElement.style.position = 'fixed';
+                    
+                    currentTooltip = tooltipElement;
+                });
+                
+                tooltip.addEventListener('mouseleave', function() {
+                    if (currentTooltip) {
+                        currentTooltip.remove();
+                        currentTooltip = null;
+                    }
+                });
+            });
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            setTimeout(() => {
+                animateSkillBars();
+                checkPageOverflow();
+                initializeTooltips();
+            }, 500);
+        });
+
+        // Recheck on window resize
+        window.addEventListener('resize', function() {
+            setTimeout(checkPageOverflow, 100);
+        });
+
+        // Print optimization
+        window.addEventListener('beforeprint', function() {
+            // Ensure all animations are complete before printing
+            const skillBars = document.querySelectorAll('.skill-bar');
+            skillBars.forEach(bar => {
+                const skillLevel = bar.getAttribute('data-skill');
+                bar.style.width = skillLevel + '%';
+                bar.style.transition = 'none';
+            });
+        });
+
+        window.addEventListener('afterprint', function() {
+            // Restore transitions after printing
+            const skillBars = document.querySelectorAll('.skill-bar');
+            skillBars.forEach(bar => {
+                bar.style.transition = 'width 2s ease-in-out';
+            });
+        });
+    </script>
+</body>
+</html>
