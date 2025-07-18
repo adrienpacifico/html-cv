@@ -15,6 +15,7 @@
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background: #e5e5e5;
             padding: 20px;
+            margin: 0;
             line-height: 1.4;
         }
 
@@ -39,18 +40,29 @@
 
         /* Print styles */
         @media print {
+            @page {
+                size: A4;
+                margin: 0;
+            }
+            
             body {
-                background: white;
-                padding: 0;
+                background: white !important;
+                padding: 0 !important;
+                margin: 0 !important;
             }
             
             .a4-page {
-                width: 210mm;
-                height: 297mm;
-                margin: 0;
-                padding: 20mm;
-                box-shadow: none;
+                width: 210mm !important;
+                height: 297mm !important;
+                margin: 0 !important;
+                padding: 20mm !important;
+                box-shadow: none !important;
                 page-break-after: always;
+                overflow: visible !important;
+                position: relative !important;
+                border: none !important;
+                outline: none !important;
+                background: white !important;
             }
             
             .a4-page:last-child {
@@ -58,7 +70,36 @@
             }
             
             .no-print {
-                display: none;
+                display: none !important;
+            }
+            
+            .controls {
+                display: none !important;
+            }
+            
+            /* Ensure tooltips don't interfere with printing */
+            .tooltip,
+            .skill-tooltip::before,
+            .skill-tooltip::after {
+                display: none !important;
+                visibility: hidden !important;
+            }
+            
+            /* Ensure skill bars are fully rendered for print */
+            .skill-bar {
+                transition: none !important;
+            }
+            
+            /* Remove any debug borders or outlines */
+            * {
+                border: none !important;
+                outline: none !important;
+            }
+            
+            /* Ensure proper A4 scaling */
+            html {
+                print-color-adjust: exact;
+                -webkit-print-color-adjust: exact;
             }
         }
 
@@ -94,15 +135,15 @@
         /* Header styles */
         .header {
             text-align: center;
-            margin-bottom: 8mm;
-            border-bottom: 3px solid #3182ce;
-            padding-bottom: 6mm;
+            margin-bottom: 2mm;
+            border-bottom: 2px solid #3182ce;
+            padding-bottom: 2mm;
         }
 
         .header h1 {
-            font-size: 28pt;
+            font-size: 15pt;
             font-weight: bold;
-            margin-bottom: 3mm;
+            margin-bottom: 0.5mm;
             color: #2d3748;
             background: linear-gradient(135deg, #3182ce 0%, #4299e1 100%);
             -webkit-background-clip: text;
@@ -111,20 +152,20 @@
         }
 
         .header .subtitle {
-            font-size: 14pt;
+            font-size: 10pt;
             color: #4a5568;
-            margin-bottom: 3mm;
+            margin-bottom: 1mm;
             font-weight: 500;
         }
 
         .header .personal-info {
-            font-size: 10pt;
+            font-size: 7pt;
             color: #718096;
-            margin-bottom: 2mm;
+            margin-bottom: 0.5mm;
         }
 
         .header .contact-info {
-            font-size: 10pt;
+            font-size: 7pt;
             color: #4a5568;
         }
 
@@ -135,16 +176,16 @@
 
         /* Section styles */
         .section {
-            margin-bottom: 6mm;
+            margin-bottom: 4mm;
         }
 
         .section h2 {
-            font-size: 16pt;
+            font-size: 13pt;
             font-weight: bold;
-            margin-bottom: 4mm;
+            margin-bottom: 3mm;
             color: #2d3748;
             border-bottom: 2px solid #e2e8f0;
-            padding-bottom: 2mm;
+            padding-bottom: 1.5mm;
             background: linear-gradient(135deg, #3182ce 0%, #4299e1 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
@@ -444,7 +485,7 @@
         <button onclick="animateSkillBars()">Animate Skills</button>
     </div>
 
-    <!-- Page 1: Header, Skills, Tools, Education -->
+    <!-- Page 1: Header, Skills, Experience -->
     <div class="a4-page" id="page1">
         <div class="header">
             <h1>Adrien Pacifico, Ph.D.</h1>
@@ -581,6 +622,16 @@
                         </a>
                     </div>
                 </div>
+
+                <div class="section">
+                    <h2>Education</h2>
+                    <div class="education-item">
+                        <div class="degree">Ph.D. in Economics</div>
+                        <div class="institution">Aix-Marseille School of Economics</div>
+                        <div class="job-date">09/2014 - 06/2019</div>
+                        <div style="margin-top: 2mm; font-size: 9pt; color: #4a5568;">Thesis: Three Empirical Essays in French Household Taxation</div>
+                    </div>
+                </div>
             </div>
 
             <div class="main-content">
@@ -600,7 +651,7 @@
                     <div class="experience-item no-break">
                         <div class="job-header">
                             <div class="job-title">Data Engineer</div>
-                            <div class="job-date">05-2025 (2 months)</div>
+                            <div class="job-date">05/2025 - Present (2 months)</div>
                         </div>
                         <div class="company">Free Pro</div>
                         <div class="description">
@@ -630,7 +681,40 @@
                             </div>
                         </div>
                     </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
+    <!-- Page 2: Education and Summary -->
+    <div class="a4-page" id="page2">
+        <div class="page-content">
+            <div class="sidebar">
+                <div class="section">
+                    <h2>Education (continued)</h2>
+                    <div class="education-item">
+                        <div class="degree">Magistère Ingénieur économiste</div>
+                        <div class="institution">Aix-Marseille School of Economics</div>
+                        <div class="job-date">10/2012 - 07/2014</div>
+                        <div style="margin-top: 2mm; font-size: 9pt; color: #4a5568;">Public Policy Evaluation</div>
+                    </div>
+                    <div class="education-item">
+                        <div class="degree">BSc Economics (Exchange)</div>
+                        <div class="institution">Bishop's University</div>
+                        <div class="job-date">09/2012 - 12/2012</div>
+                    </div>
+                    <div class="education-item">
+                        <div class="degree">Licence Économie Management (EM)</div>
+                        <div class="institution">Aix-Marseille University</div>
+                        <div class="job-date">2009 - 2012</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="main-content">
+                <div class="section">
+                    <h2>Experience (continued)</h2>
+                    
                     <div class="experience-item no-break">
                         <div class="job-header">
                             <div class="job-title">Data Scientist (freelance)</div>
@@ -669,104 +753,50 @@
                             I taught different subjects for a year at Albert School including data wrangling with pandas, introduction to Python, data acquisition and API usage, coding tools (venv, linter, docker, make), and plotting tools.
                         </div>
                     </div>
-                </div>
-            </div>
-        </div>
-    </div>
 
-    <!-- Page 2: Recent Experience and Education -->
-    <div class="a4-page" id="page2">
-        <div class="page-content">
-            <div class="sidebar">
-                <div class="section">
-                    <h2>Education</h2>
-                    <div class="education-item">
-                        <div class="degree">Ph.D. in Economics</div>
-                        <div class="institution">Aix-Marseille School of Economics</div>
-                        <div class="job-date">09/2014 - 06/2019</div>
-                        <div style="margin-top: 2mm; font-size: 9pt; color: #4a5568;">Thesis: Three Empirical Essays in French Household Taxation</div>
-                    </div>
-                    <div class="education-item">
-                        <div class="degree">Magistère Ingénieur économiste</div>
-                        <div class="institution">Aix-Marseille School of Economics</div>
-                        <div class="job-date">10/2012 - 07/2014</div>
-                        <div style="margin-top: 2mm; font-size: 9pt; color: #4a5568;">Public Policy Evaluation</div>
-                    </div>
-                    <div class="education-item">
-                        <div class="degree">BSc Economics (Exchange)</div>
-                        <div class="institution">Bishop's University</div>
-                        <div class="job-date">09/2012 - 12/2012</div>
-                    </div>
-                    <div class="education-item">
-                        <div class="degree">Licence Économie Management (EM)</div>
-                        <div class="institution">Aix-Marseille University</div>
-                        <div class="job-date">2009 - 2012</div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="main-content">
-                <div class="section">
-                    <h2>Experience</h2>
-                    
                     <div class="experience-item no-break">
                         <div class="job-header">
-                            <div class="job-title">Data Engineer</div>
-                            <div class="job-date">05-2025 (2 months)</div>
+                            <div class="job-title">Data Scientist (permanent position)</div>
+                            <div class="job-date">01/2021 - 01/2023</div>
                         </div>
-                        <div class="company">Free Pro</div>
+                        <div class="company">NOVRH</div>
                         <div class="description">
-                            <p>Hired to migrate a Talend/PostGre data analytics stack to one based on ClickHouse. I developed a proof of concept where I reproduced key metrics of the company.</p>
-                            <ul>
-                                <li><strong>Data Ingestion:</strong> Export to parquet then ingestion with native ClickHouse. (Experimented with PostGre CDC with PeerDB)</li>
-                                <li><strong>Data Transformation:</strong> dbt with dbt-clickhouse plugin (VS Code + dbt Power User in the IDE)</li>
-                                <li><strong>Data Product:</strong> A small dashboard in dash replicating key metrics of the company</li>
-                            </ul>
-                            <p>The proof of concept was appreciated especially for the ability to deploy documentation at the table and column level, clarity of the data lineage, computational speed of the solution, and ability to test and modularize code.</p>
+                            I worked in the R&D department where I developed supervised and unsupervised machine learning models to predict employee absenteeism and errors in payslips. I also developed the first real-time dashboard of the company (plotly dash), which required querying data from multiple sources (ERP undocumented database, GitLab issues, user activity logs). This dashboard is still used in production and is instrumental for the third-party application support strategy.
                         </div>
                         <div class="tools-used">
                             <strong>Tools Used:</strong>
                             <div class="tools-list">
-                                <img src="https://img.shields.io/badge/ClickHouse-2c3e50?style=flat&logo=clickhouse&logoColor=FFCC02" alt="ClickHouse">
-                                <img src="https://img.shields.io/badge/DBT-2c3e50?style=flat&logo=dbt&logoColor=FF694B" alt="DBT">
-                                <img src="https://img.shields.io/badge/dlt-2c3e50?style=flat&logo=python&logoColor=3776AB" alt="dlt">
-                                <img src="https://img.shields.io/badge/Dagster-2c3e50?style=flat&logo=dagster&logoColor=white" alt="Dagster">
-                                <img src="https://img.shields.io/badge/PeerDB-2c3e50?style=flat&logo=database&logoColor=white" alt="PeerDB">
-                                <img src="https://img.shields.io/badge/PostgreSQL-2c3e50?style=flat&logo=postgresql&logoColor=4169E1" alt="PostgreSQL">
-                                <img src="https://img.shields.io/badge/Podman-2c3e50?style=flat&logo=podman&logoColor=892CA0" alt="Podman">
-                                <img src="https://img.shields.io/badge/uv-2c3e50?style=flat&logo=python&logoColor=3776AB" alt="uv">
-                                <img src="https://img.shields.io/badge/GitLab-2c3e50?style=flat&logo=gitlab&logoColor=FC6D26" alt="GitLab">
+                                <img src="https://img.shields.io/badge/Plotly-2c3e50?style=flat&logo=plotly&logoColor=3F4F75" alt="Plotly Dash">
+                                <img src="https://img.shields.io/badge/Docker-2c3e50?style=flat&logo=docker&logoColor=2496ED" alt="Docker">
                                 <img src="https://img.shields.io/badge/GitLab_CI/CD-2c3e50?style=flat&logo=gitlab&logoColor=FC6D26" alt="GitLab CI/CD">
-                                <img src="https://img.shields.io/badge/dbt_Power_User-2c3e50?style=flat&logo=dbt&logoColor=FF694B" alt="dbt Power User">
+                                <img src="https://img.shields.io/badge/Pytest-2c3e50?style=flat&logo=pytest&logoColor=009FE3" alt="Pytest">
+                                <img src="https://img.shields.io/badge/MLFlow-2c3e50?style=flat&logo=mlflow&logoColor=0194E2" alt="MLFlow">
+                                <img src="https://img.shields.io/badge/XGBoost-2c3e50?style=flat&logo=xgboost&logoColor=white" alt="XGBoost">
+                                <img src="https://img.shields.io/badge/Optuna-2c3e50?style=flat&logo=optuna&logoColor=white" alt="Optuna">
+                                <img src="https://img.shields.io/badge/MLJar-2c3e50?style=flat&logo=python&logoColor=3776AB" alt="MLJar">
                                 <img src="https://img.shields.io/badge/Pandas-2c3e50?style=flat&logo=pandas&logoColor=150458" alt="Pandas">
+                                <img src="https://custom-icon-badges.demolab.com/badge/Oracle_SQL-2c3e50?style=flat&logo=oracle&logoColor=F80000" alt="Oracle SQL">
+                                <img src="https://img.shields.io/badge/CRON-2c3e50?style=flat&logo=linux&logoColor=FCC624" alt="CRON">
                             </div>
                         </div>
                     </div>
 
                     <div class="experience-item no-break">
                         <div class="job-header">
-                            <div class="job-title">Data Scientist (freelance)</div>
-                            <div class="job-date">09/2023 - 05/2025</div>
+                            <div class="job-title">Post Doctoral Researcher</div>
+                            <div class="job-date">06/2019 - 12/2020</div>
                         </div>
-                        <div class="company">Holmium Consulting</div>
+                        <div class="company">Reproducibility certifier HEC Paris & ETH Zurich</div>
                         <div class="description">
-                            I developed and deployed an ML model that predicts next day production of electrical windmill parks. The production model automatically queries next day weather predictions of multiple models (AROME, DWD, etc), fetch a trained LightGBM model on an MLFlow server deployed on AWS, and post the prediction to the business client through its proprietary API.
+                            After my PhD, I completed two contracts: one with cascad.tech, where I helped reproduce and certify scientific publications, and another with ETH Zurich, where I worked on an income mobility project.
                         </div>
                         <div class="tools-used">
                             <strong>Tools Used:</strong>
                             <div class="tools-list">
-                                <img src="https://img.shields.io/badge/MLFlow-2c3e50?style=flat&logo=mlflow&logoColor=0194E2" alt="MLFlow">
-                                <img src="https://img.shields.io/badge/LightGBM-2c3e50?style=flat&logo=lightgbm&logoColor=white" alt="LightGBM">
-                                <img src="https://custom-icon-badges.demolab.com/badge/AWS-2c3e50?style=flat&logo=aws&logoColor=FF9900" alt="AWS">
+                                <img src="https://img.shields.io/badge/CASD-2c3e50?style=flat&logo=database&logoColor=white" alt="CASD">
+                                <img src="https://img.shields.io/badge/R-2c3e50?style=flat&logo=r&logoColor=276DC3" alt="R">
+                                <img src="https://img.shields.io/badge/Git-2c3e50?style=flat&logo=git&logoColor=F05032" alt="Git">
                                 <img src="https://img.shields.io/badge/Docker-2c3e50?style=flat&logo=docker&logoColor=2496ED" alt="Docker">
-                                <img src="https://img.shields.io/badge/GitLab-2c3e50?style=flat&logo=gitlab&logoColor=FC6D26" alt="GitLab">
-                                <img src="https://img.shields.io/badge/Poetry-2c3e50?style=flat&logo=poetry&logoColor=60A5FA" alt="Poetry">
-                                <img src="https://img.shields.io/badge/Meteomatics_API-2c3e50?style=flat&logo=api&logoColor=white" alt="Meteomatics API">
-                                <img src="https://img.shields.io/badge/Kedro-2c3e50?style=flat&logo=kedro&logoColor=white" alt="Kedro">
-                                <img src="https://img.shields.io/badge/Pandas-2c3e50?style=flat&logo=pandas&logoColor=150458" alt="Pandas">
-                                <img src="https://img.shields.io/badge/SHAP-2c3e50?style=flat&logo=python&logoColor=3776AB" alt="SHAP">
-                                <img src="https://img.shields.io/badge/Optuna-2c3e50?style=flat&logo=optuna&logoColor=white" alt="Optuna">
-                                <img src="https://img.shields.io/badge/Scikit_Learn-2c3e50?style=flat&logo=scikitlearn&logoColor=F7931E" alt="Scikit-learn">
                             </div>
                         </div>
                     </div>
@@ -780,53 +810,6 @@
         <div class="section">
             <h2>Experience (continued)</h2>
             
-            <div class="experience-item no-break">
-                <div class="job-header">
-                    <div class="job-title">Data Scientist (permanent position)</div>
-                    <div class="job-date">01/2021 - 01/2023</div>
-                </div>
-                <div class="company">NOVRH</div>
-                <div class="description">
-                    I worked in the R&D department where I developed supervised and unsupervised machine learning models to predict employee absenteeism and errors in payslips. I also developed the first real-time dashboard of the company (plotly dash), which required querying data from multiple sources (ERP undocumented database, GitLab issues, user activity logs). This dashboard is still used in production and is instrumental for the third-party application support strategy.
-                </div>
-                <div class="tools-used">
-                    <strong>Tools Used:</strong>
-                    <div class="tools-list">
-                        <img src="https://img.shields.io/badge/Plotly-2c3e50?style=flat&logo=plotly&logoColor=3F4F75" alt="Plotly Dash">
-                        <img src="https://img.shields.io/badge/Docker-2c3e50?style=flat&logo=docker&logoColor=2496ED" alt="Docker">
-                        <img src="https://img.shields.io/badge/GitLab_CI/CD-2c3e50?style=flat&logo=gitlab&logoColor=FC6D26" alt="GitLab CI/CD">
-                        <img src="https://img.shields.io/badge/Pytest-2c3e50?style=flat&logo=pytest&logoColor=009FE3" alt="Pytest">
-                        <img src="https://img.shields.io/badge/MLFlow-2c3e50?style=flat&logo=mlflow&logoColor=0194E2" alt="MLFlow">
-                        <img src="https://img.shields.io/badge/XGBoost-2c3e50?style=flat&logo=xgboost&logoColor=white" alt="XGBoost">
-                        <img src="https://img.shields.io/badge/Optuna-2c3e50?style=flat&logo=optuna&logoColor=white" alt="Optuna">
-                        <img src="https://img.shields.io/badge/MLJar-2c3e50?style=flat&logo=python&logoColor=3776AB" alt="MLJar">
-                        <img src="https://img.shields.io/badge/Pandas-2c3e50?style=flat&logo=pandas&logoColor=150458" alt="Pandas">
-                        <img src="https://custom-icon-badges.demolab.com/badge/Oracle_SQL-2c3e50?style=flat&logo=oracle&logoColor=F80000" alt="Oracle SQL">
-                        <img src="https://img.shields.io/badge/CRON-2c3e50?style=flat&logo=linux&logoColor=FCC624" alt="CRON">
-                    </div>
-                </div>
-            </div>
-
-            <div class="experience-item no-break">
-                <div class="job-header">
-                    <div class="job-title">Post Doctoral Researcher</div>
-                    <div class="job-date">06/2019 - 12/2020</div>
-                </div>
-                <div class="company">Reproducibility certifier HEC Paris & ETH Zurich</div>
-                <div class="description">
-                    After my PhD, I completed two contracts: one with cascad.tech, where I helped reproduce and certify scientific publications, and another with ETH Zurich, where I worked on an income mobility project.
-                </div>
-                <div class="tools-used">
-                    <strong>Tools Used:</strong>
-                    <div class="tools-list">
-                        <img src="https://img.shields.io/badge/CASD-2c3e50?style=flat&logo=database&logoColor=white" alt="CASD">
-                        <img src="https://img.shields.io/badge/R-2c3e50?style=flat&logo=r&logoColor=276DC3" alt="R">
-                        <img src="https://img.shields.io/badge/Git-2c3e50?style=flat&logo=git&logoColor=F05032" alt="Git">
-                        <img src="https://img.shields.io/badge/Docker-2c3e50?style=flat&logo=docker&logoColor=2496ED" alt="Docker">
-                    </div>
-                </div>
-            </div>
-
             <div class="experience-item no-break">
                 <div class="job-header">
                     <div class="job-title">PhD Candidate</div>
@@ -874,14 +857,17 @@
                     <strong>Bacardi Geneva</strong> (06/2012-08/2012): Management Control - Developed VBA excel macro to monitor FTE
                 </div>
             </div>
+        </div>
+    </div>
 
-            <div class="section">
-                <h2>Publication</h2>
-                <div class="publication">
-                    <div class="publication-title">Tax Minimization by French Cohabiting Couples</div>
-                    <div class="publication-authors">Olivier Bargain, Damien Echevin, Audrey Etienne, Nicolas Moreau, and Adrien Pacifico</div>
-                    <div class="publication-details">National Tax Journal Volume 75, Number 2, June 2022<br>DOI: 10.1086/719427</div>
-                </div>
+    <!-- Page 4: Publications -->
+    <div class="a4-page" id="page4">
+        <div class="section">
+            <h2>Publication</h2>
+            <div class="publication">
+                <div class="publication-title">Tax Minimization by French Cohabiting Couples</div>
+                <div class="publication-authors">Olivier Bargain, Damien Echevin, Audrey Etienne, Nicolas Moreau, and Adrien Pacifico</div>
+                <div class="publication-details">National Tax Journal Volume 75, Number 2, June 2022<br>DOI: 10.1086/719427</div>
             </div>
         </div>
     </div>
