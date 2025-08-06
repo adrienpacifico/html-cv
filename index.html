@@ -577,20 +577,109 @@
 
         /* Responsive adjustments */
         @media screen and (max-width: 900px) {
+            /* Remove A4 constraints on mobile for continuous scrolling */
             .a4-page {
                 width: 100%;
                 height: auto;
                 min-height: auto;
+                max-height: none;
                 page-break-after: auto;
+                margin-bottom: 0;
+                padding: 10px 15px;
+                box-shadow: none;
+                border-radius: 0;
             }
             
+            /* Hide page breaks on mobile - create continuous flow */
+            .page-break {
+                display: none;
+            }
+            
+            /* Create a single flex container for ALL sections across ALL pages */
+            body {
+                display: flex !important;
+                flex-direction: column !important;
+            }
+            
+            /* Make all pages part of the same flex container */
+            .a4-page {
+                display: contents !important;
+            }
+            
+            /* Make page-content containers transparent */
             .page-content {
-                flex-direction: column;
-                height: auto;
+                display: contents !important;
             }
             
-            .sidebar {
-                flex: none;
+            /* Hide the original containers and recreate layout */
+            #page1 .sidebar,
+            #page1 .main-content,
+            #page2 .sidebar,
+            #page2 .main-content,
+            #page3 .sidebar,
+            #page3 .main-content {
+                display: contents; /* This makes the containers invisible but keeps their children */
+            }
+            
+            /* Order sections correctly across all pages - FIXED ORDERING */
+            #page1 .main-content .section:nth-child(1) { order: 1 !important; } /* Summary */
+            #page1 .sidebar .section:nth-child(1) { order: 2 !important; } /* Technical Skills */
+            #page1 .sidebar .section:nth-child(3) { order: 3 !important; } /* Stack Overflow */
+            #page1 .sidebar .section:nth-child(4) { order: 4 !important; } /* Education */
+            
+            /* Education continued - MUST come immediately after Education */
+            #page2 .sidebar > .section:first-child { order: 5 !important; } /* Education (continued) */
+            
+            /* Experience sections - come after ALL Education sections */
+            #page1 .main-content .section:nth-child(2) { order: 6 !important; } /* Experience */
+            #page2 .main-content .section:nth-child(1) { order: 7 !important; } /* Experience (continued) from page 2 */
+            #page2 .section.experiences-overlay { order: 8 !important; } /* More experiences from page 2 */
+            #page3 .section:nth-child(1) { order: 9 !important; } /* Experience (continued) from page 3 - SPECIFIC */
+            
+            /* Other sections - come after Experience */
+            #page3 .section:nth-child(2) { order: 10 !important; } /* Other Experiences */
+            #page3 .section:nth-child(3) { order: 11 !important; } /* Publication */
+            
+            /* Hide Tools section on mobile */
+            #page1 .sidebar .section:nth-child(2) { 
+                display: none; 
+            }
+            
+            /* Show page 2 and 3 content but make them flow continuously */
+            #page2, #page3 {
+                display: block;
+                page-break-before: unset;
+            }
+            
+            /* Hide "continued" titles for both Education and Experience sections */
+            #page2 .sidebar .section h2, /* Education (continued) */
+            #page2 .main-content .section h2, /* Experience (continued) */
+            #page3 .section:first-child h2 { /* Experience (continued) from page 3 */
+                display: none;
+            }
+            
+            /* Keep Other Experiences and Publication section titles visible */
+            #page3 .section:nth-child(2) h2, /* Other Experiences */
+            #page3 .section:nth-child(3) h2 { /* Publication */
+                display: block !important;
+            }
+            
+            /* Extra specific rule for Publication title - DEBUGGING */
+            #page3 .section:last-child h2 {
+                display: block !important;
+                color: #2d3748 !important;
+                font-size: 13pt !important;
+                font-weight: bold !important;
+                border-bottom: 2px solid #e2e8f0 !important;
+                margin-bottom: 3mm !important;
+                padding-bottom: 1.5mm !important;
+            }
+            
+            /* Mobile container styles */
+            .mobile-container {
+                width: 100% !important;
+                display: flex !important;
+                flex-direction: column !important;
             }
             
             /* Make sections flow naturally on mobile */
@@ -602,6 +691,11 @@
             /* Ensure proper spacing between sections on mobile */
             .section + .section {
                 margin-top: 6mm;
+            }
+            
+            /* Reduce body padding on mobile */
+            body {
+                padding: 10px;
             }
         }
 
@@ -1270,6 +1364,7 @@
 
         // Initialize
         document.addEventListener('DOMContentLoaded', function() {
+            console.log('DOM loaded, initializing...');
             setTimeout(() => {
                 animateSkillBars();
                 checkPageOverflow();
@@ -1279,7 +1374,10 @@
 
         // Recheck on window resize
         window.addEventListener('resize', function() {
-            setTimeout(checkPageOverflow, 100);
+            console.log('Window resized, width:', window.innerWidth);
+            setTimeout(() => {
+                checkPageOverflow();
+            }, 100);
         });
 
         // Print optimization
