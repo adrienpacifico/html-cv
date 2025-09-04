@@ -747,7 +747,7 @@
         
         <div class="header">
             <h1>Adrien Pacifico</h1>
-            <div class="subtitle">Data Engineer/Data Scientist</div>
+            <div class="subtitle">Freelance Data Engineer/Data Scientist</div>
             
             <div class="personal-info">
                 <span>🇫🇷 French</span> • 
@@ -937,35 +937,48 @@
                     
                     <div class="experience-item no-break">
                         <div class="job-header">
+                            <div class="job-title">Data Scientist</div>
+                            <div class="job-date">09/2023 - 05/2025 ; 08/2025 - present</div>
+                        </div>
+                        <div class="company">Holmium Consulting</div>
+                        <div class="description">
+                            <p>I developed and deployed an ML model that predicts next day production of electrical windmill parks. The production model automatically queries next day weather predictions from multiple models (AROME, DWD, etc), fetches a trained LightGBM model from an MLFlow server deployed on AWS, and posts the prediction to the business client through its proprietary API.</p>
+
+                            <p>The model has been validated by one windmill park operator. In a competitive production evaluation by another operator, we ranked second in MAPE (Mean Absolute Percentage Error), scoring only 0.85% above the best predictor while outperforming the third-place competitor by 6.85%.</p>
+                        </div>
+                        <div class="tools-used">
+                            <strong>Tools Used:</strong>
+                            <div class="tools-list">
+                                <a href="https://mlflow.org/" target="_blank"><img src="https://img.shields.io/badge/MLFlow-2c3e50?style=flat&logo=mlflow&logoColor=0194E2" alt="MLFlow"></a>
+                                <a href="https://lightgbm.readthedocs.io/" target="_blank"><img src="https://img.shields.io/badge/LightGBM-2c3e50?style=flat&logo=lightgbm&logoColor=white" alt="LightGBM"></a>
+                                <a href="https://aws.amazon.com/" target="_blank"><img src="https://custom-icon-badges.demolab.com/badge/AWS-2c3e50?style=flat&logo=aws&logoColor=FF9900" alt="AWS"></a>
+                                <a href="https://www.docker.com/" target="_blank"><img src="https://img.shields.io/badge/Docker-2c3e50?style=flat&logo=docker&logoColor=2496ED" alt="Docker"></a>
+                                <a href="https://gitlab.com/" target="_blank"><img src="https://img.shields.io/badge/GitLab-2c3e50?style=flat&logo=gitlab&logoColor=FC6D26" alt="GitLab"></a>
+                                <a href="https://python-poetry.org/" target="_blank"><img src="https://img.shields.io/badge/Poetry-2c3e50?style=flat&logo=poetry&logoColor=60A5FA" alt="Poetry"></a>
+                                <a href="https://www.meteomatics.com/en/api/" target="_blank"><img src="https://img.shields.io/badge/Meteomatics_API-2c3e50?style=flat&logo=api&logoColor=white" alt="Meteomatics API"></a>
+                                <a href="https://kedro.org/" target="_blank"><img src="https://img.shields.io/badge/Kedro-2c3e50?style=flat&logo=kedro&logoColor=white" alt="Kedro"></a>
+                                <a href="https://airflow.apache.org/" target="_blank"><img src="https://img.shields.io/badge/Apache_Airflow-2c3e50?style=flat&logo=apache-airflow&logoColor=017CEE" alt="Apache Airflow"></a>
+                                <a href="https://spark.apache.org/" target="_blank"><img src="https://img.shields.io/badge/Apache_Spark-2c3e50?style=flat&logo=apache-spark&logoColor=E25A1C" alt="Apache Spark"></a>
+                                <a href="https://pandas.pydata.org/" target="_blank"><img src="https://img.shields.io/badge/Pandas-2c3e50?style=flat&logo=pandas&logoColor=150458" alt="Pandas"></a>
+                                <a href="https://shap.readthedocs.io/" target="_blank"><img src="https://img.shields.io/badge/SHAP-2c3e50?style=flat&logo=python&logoColor=3776AB" alt="SHAP"></a>
+                                <a href="https://optuna.org/" target="_blank"><img src="https://img.shields.io/badge/Optuna-2c3e50?style=flat&logo=optuna&logoColor=white" alt="Optuna"></a>
+                                <a href="https://scikit-learn.org/" target="_blank"><img src="https://img.shields.io/badge/Scikit_Learn-2c3e50?style=flat&logo=scikitlearn&logoColor=F7931E" alt="Scikit-learn"></a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="experience-item no-break">
+                        <div class="job-header">
                             <div class="job-title">Data Engineer</div>
                             <div class="job-date">05/2025 - 07/2025</div>
                         </div>
                         <div class="company">Free Pro</div>
                         <div class="description">
-                            <p>Hired to migrate a Talend/PostGre data analytics stack to one based on ClickHouse. I developed a proof of concept where I reproduced key metrics of the company.</p>
+                            <p>Hired to migrate a Talend/PostgreSQL data analytics stack to a modern ClickHouse-based solution. I developed a proof of concept where I reproduced key business metrics of the company.</p>
                             <ul>
-                                <li><strong>Data Ingestion:</strong> Export to parquet then ingestion with native ClickHouse. (Experimented with PostGre CDC with PeerDB)</li>
+                                <li><strong>Data Ingestion:</strong> Export to parquet then ingestion with native ClickHouse. (Experimented with PostgreSQL CDC with PeerDB)</li>
                                 <li><strong>Data Transformation:</strong> dbt with dbt-clickhouse plugin (VS Code + dbt Power User in the IDE)</li>
-                                <li><strong>Data Product:</strong> A small dashboard in dash replicating key metrics of the company</li>
                             </ul>
-                            <p>The proof of concept was appreciated especially for the ability to deploy documentation at the table and column level, clarity of the data lineage, computational speed of the solution, and ability to test and modularize code.</p>
-                        </div>
-                        <div class="tools-used">
-                            <strong>Tools Used:</strong>
-                            <div class="tools-list">
-                                <a href="https://clickhouse.com/" target="_blank"><img src="https://img.shields.io/badge/ClickHouse-2c3e50?style=flat&logo=clickhouse&logoColor=FFCC02" alt="ClickHouse"></a>
-                                <a href="https://docs.getdbt.com/" target="_blank"><img src="https://img.shields.io/badge/DBT-2c3e50?style=flat&logo=dbt&logoColor=FF694B" alt="DBT"></a>
-                                <a href="https://dlthub.com/" target="_blank"><img src="https://img.shields.io/badge/dlt-2c3e50?style=flat&logo=python&logoColor=3776AB" alt="dlt"></a>
-                                <a href="https://dagster.io/" target="_blank"><img src="https://img.shields.io/badge/Dagster-2c3e50?style=flat&logo=dagster&logoColor=white" alt="Dagster"></a>
-                                <a href="https://www.peerdb.io/" target="_blank"><img src="https://img.shields.io/badge/PeerDB-2c3e50?style=flat&logo=database&logoColor=white" alt="PeerDB"></a>
-                                <a href="https://www.postgresql.org/" target="_blank"><img src="https://img.shields.io/badge/PostgreSQL-2c3e50?style=flat&logo=postgresql&logoColor=4169E1" alt="PostgreSQL"></a>
-                                <a href="https://podman.io/" target="_blank"><img src="https://img.shields.io/badge/Podman-2c3e50?style=flat&logo=podman&logoColor=892CA0" alt="Podman"></a>
-                                <a href="https://docs.astral.sh/uv/" target="_blank"><img src="https://img.shields.io/badge/uv-2c3e50?style=flat&logo=python&logoColor=3776AB" alt="uv"></a>
-                                <a href="https://gitlab.com/" target="_blank"><img src="https://img.shields.io/badge/GitLab-2c3e50?style=flat&logo=gitlab&logoColor=FC6D26" alt="GitLab"></a>
-                                <a href="https://docs.gitlab.com/ee/ci/" target="_blank"><img src="https://img.shields.io/badge/GitLab_CI/CD-2c3e50?style=flat&logo=gitlab&logoColor=FC6D26" alt="GitLab CI/CD"></a>
-                                <a href="https://marketplace.visualstudio.com/items?itemName=innoverio.vscode-dbt-power-user" target="_blank"><img src="https://img.shields.io/badge/dbt_Power_User-2c3e50?style=flat&logo=dbt&logoColor=FF694B" alt="dbt Power User"></a>
-                                <a href="https://pandas.pydata.org/" target="_blank"><img src="https://img.shields.io/badge/Pandas-2c3e50?style=flat&logo=pandas&logoColor=150458" alt="Pandas"></a>
-                            </div>
                         </div>
                     </div>
                 </div>
@@ -1004,30 +1017,29 @@
                     
                     <div class="experience-item no-break">
                         <div class="job-header">
-                            <div class="job-title">Data Scientist</div>
-                            <div class="job-date">09/2023 - 05/2025</div>
+
                         </div>
-                        <div class="company">Holmium Consulting</div>
                         <div class="description">
-                            I developed and deployed an ML model that predicts next day production of electrical windmill parks. The production model automatically queries next day weather predictions of multiple models (AROME, DWD, etc), fetch a trained LightGBM model on an MLFlow server deployed on AWS, and post the prediction to the business client through its proprietary API.
+                            <ul>
+                                <li><strong>Data Product:</strong> An interactive dashboard in Dash replicating key business metrics of the company</li>
+                            </ul>
+                            <p>The proof of concept was appreciated especially for the ability to deploy documentation at the table and column level, clarity of the data lineage, computational speed of the solution, and ability to test and modularize code.</p>
                         </div>
                         <div class="tools-used">
                             <strong>Tools Used:</strong>
                             <div class="tools-list">
-                                <a href="https://mlflow.org/" target="_blank"><img src="https://img.shields.io/badge/MLFlow-2c3e50?style=flat&logo=mlflow&logoColor=0194E2" alt="MLFlow"></a>
-                                <a href="https://lightgbm.readthedocs.io/" target="_blank"><img src="https://img.shields.io/badge/LightGBM-2c3e50?style=flat&logo=lightgbm&logoColor=white" alt="LightGBM"></a>
-                                <a href="https://aws.amazon.com/" target="_blank"><img src="https://custom-icon-badges.demolab.com/badge/AWS-2c3e50?style=flat&logo=aws&logoColor=FF9900" alt="AWS"></a>
-                                <a href="https://www.docker.com/" target="_blank"><img src="https://img.shields.io/badge/Docker-2c3e50?style=flat&logo=docker&logoColor=2496ED" alt="Docker"></a>
+                                <a href="https://clickhouse.com/" target="_blank"><img src="https://img.shields.io/badge/ClickHouse-2c3e50?style=flat&logo=clickhouse&logoColor=FFCC02" alt="ClickHouse"></a>
+                                <a href="https://docs.getdbt.com/" target="_blank"><img src="https://img.shields.io/badge/DBT-2c3e50?style=flat&logo=dbt&logoColor=FF694B" alt="DBT"></a>
+                                <a href="https://dlthub.com/" target="_blank"><img src="https://img.shields.io/badge/dlt-2c3e50?style=flat&logo=python&logoColor=3776AB" alt="dlt"></a>
+                                <a href="https://dagster.io/" target="_blank"><img src="https://img.shields.io/badge/Dagster-2c3e50?style=flat&logo=dagster&logoColor=white" alt="Dagster"></a>
+                                <a href="https://www.peerdb.io/" target="_blank"><img src="https://img.shields.io/badge/PeerDB-2c3e50?style=flat&logo=database&logoColor=white" alt="PeerDB"></a>
+                                <a href="https://www.postgresql.org/" target="_blank"><img src="https://img.shields.io/badge/PostgreSQL-2c3e50?style=flat&logo=postgresql&logoColor=4169E1" alt="PostgreSQL"></a>
+                                <a href="https://podman.io/" target="_blank"><img src="https://img.shields.io/badge/Podman-2c3e50?style=flat&logo=podman&logoColor=892CA0" alt="Podman"></a>
+                                <a href="https://docs.astral.sh/uv/" target="_blank"><img src="https://img.shields.io/badge/uv-2c3e50?style=flat&logo=python&logoColor=3776AB" alt="uv"></a>
                                 <a href="https://gitlab.com/" target="_blank"><img src="https://img.shields.io/badge/GitLab-2c3e50?style=flat&logo=gitlab&logoColor=FC6D26" alt="GitLab"></a>
-                                <a href="https://python-poetry.org/" target="_blank"><img src="https://img.shields.io/badge/Poetry-2c3e50?style=flat&logo=poetry&logoColor=60A5FA" alt="Poetry"></a>
-                                <a href="https://www.meteomatics.com/en/api/" target="_blank"><img src="https://img.shields.io/badge/Meteomatics_API-2c3e50?style=flat&logo=api&logoColor=white" alt="Meteomatics API"></a>
-                                <a href="https://kedro.org/" target="_blank"><img src="https://img.shields.io/badge/Kedro-2c3e50?style=flat&logo=kedro&logoColor=white" alt="Kedro"></a>
-                                <a href="https://airflow.apache.org/" target="_blank"><img src="https://img.shields.io/badge/Apache_Airflow-2c3e50?style=flat&logo=apache-airflow&logoColor=017CEE" alt="Apache Airflow"></a>
-                                <a href="https://spark.apache.org/" target="_blank"><img src="https://img.shields.io/badge/Apache_Spark-2c3e50?style=flat&logo=apache-spark&logoColor=E25A1C" alt="Apache Spark"></a>
+                                <a href="https://docs.gitlab.com/ee/ci/" target="_blank"><img src="https://img.shields.io/badge/GitLab_CI/CD-2c3e50?style=flat&logo=gitlab&logoColor=FC6D26" alt="GitLab CI/CD"></a>
+                                <a href="https://marketplace.visualstudio.com/items?itemName=innoverio.vscode-dbt-power-user" target="_blank"><img src="https://img.shields.io/badge/dbt_Power_User-2c3e50?style=flat&logo=dbt&logoColor=FF694B" alt="dbt Power User"></a>
                                 <a href="https://pandas.pydata.org/" target="_blank"><img src="https://img.shields.io/badge/Pandas-2c3e50?style=flat&logo=pandas&logoColor=150458" alt="Pandas"></a>
-                                <a href="https://shap.readthedocs.io/" target="_blank"><img src="https://img.shields.io/badge/SHAP-2c3e50?style=flat&logo=python&logoColor=3776AB" alt="SHAP"></a>
-                                <a href="https://optuna.org/" target="_blank"><img src="https://img.shields.io/badge/Optuna-2c3e50?style=flat&logo=optuna&logoColor=white" alt="Optuna"></a>
-                                <a href="https://scikit-learn.org/" target="_blank"><img src="https://img.shields.io/badge/Scikit_Learn-2c3e50?style=flat&logo=scikitlearn&logoColor=F7931E" alt="Scikit-learn"></a>
                             </div>
                         </div>
                     </div>
